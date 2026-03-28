@@ -1,0 +1,1109 @@
+{
+  /**
+   * Better Defaults
+   **/
+  "editor.copyWithSyntaxHighlighting": false,
+  "editor.emptySelectionClipboard": false,
+  "window.newWindowDimensions": "inherit",
+  "files.trimTrailingWhitespace": true,
+  "editor.snippetSuggestions": "top",
+  "editor.detectIndentation": false,
+  "window.nativeFullScreen": false,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "workbench.statusBar.visible": false,
+  "editor.minimap.enabled": false,
+  "workbench.editor.showTabs": "single",
+  // "workbench.editor.showTabs": false,
+  "editor.lineNumbers": "on",
+  // "editor.lineNumbers": "off",
+  /**
+   * Silence The Noise
+   */
+  "zenMode.centerLayout": false,
+  "zenMode.hideLineNumbers": false,
+  "breadcrumbs.enabled": true,
+  "scm.diffDecorations": "none",
+  "editor.hover.enabled": "on",
+  "editor.matchBrackets": "never",
+  "workbench.tips.enabled": false,
+  "editor.colorDecorators": false,
+  // "git.decorations.enabled": false,
+  "workbench.startupEditor": "none",
+  "editor.lightbulb.enabled": "off",
+  "editor.selectionHighlight": false,
+  "editor.overviewRulerBorder": false,
+  "editor.renderLineHighlight": "none",
+  "editor.occurrencesHighlight": "off",
+  "problems.decorations.enabled": false,
+  "editor.renderControlCharacters": false,
+  "editor.hideCursorInOverviewRuler": true,
+  "editor.gotoLocation.multipleReferences": "goto",
+  "editor.gotoLocation.multipleDefinitions": "goto",
+  "editor.gotoLocation.multipleDeclarations": "goto",
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  "editor.gotoLocation.multipleImplementations": "goto",
+  "editor.gotoLocation.multipleTypeDefinitions": "goto",
+  "editor.fontFamily": "'MonoLisa'",
+  "editor.fontSize": 15,
+  "editor.lineHeight": 25,
+  "editor.suggestFontSize": 15,
+  "editor.suggestLineHeight": 28,
+  "terminal.integrated.fontSize": 15,
+  "terminal.integrated.lineHeight": 1.5,
+  "terminal.integrated.gpuAcceleration": "off",
+  /**
+   * Search
+   **/
+  "search.useIgnoreFiles": false,
+  "search.exclude": {
+    // Hide everything in /vendor, except the "laravel" and "livewire" folder.
+    "**/vendor/{[^l],?[^ai]}*": true,
+    // Hide everything in /public, except "index.php"
+    "**/public/{[^i],?[^n]}*": true,
+    "**/_ide_helper.php": true,
+    "**/composer.lock": true,
+    "storage": true,
+    ".phpunit.result.cache": true,
+    "**/dist": true,
+    "**/.bundle": true,
+    "**/package-lock.json": true,
+    "**/yarn.lock": true,
+    "**/app/assets/webpack/helpers/routes.js.*": true,
+    "**/*hot-update.js": true,
+    "**/public/assets/webpack": true,
+    "**/.cache/**": true,
+    "**/.yarn/**": true,
+    "**/.next/**": true,
+    "**/tmp/*/**": true,
+    "**/node_modules/*/**": true,
+    "**/flow-typed/*/**": true,
+    "**/__pycache__/*/**": true,
+    "TAGS": true
+  },
+  "files.watcherExclude": {
+    // Hide everything in /vendor, except the "laravel" and "livewire" folder.
+    "**/vendor/{[^l],?[^ai]}*": true,
+    // Hide everything in /public, except "index.php"
+    "**/public/{[^i],?[^n]}*": true,
+    "**/_ide_helper.php": true,
+    "**/composer.lock": true,
+    "storage": true,
+    ".phpunit.result.cache": true,
+    "**/dist": true,
+    "**/.bundle": true,
+    "**/package-lock.json": true,
+    "**/yarn.lock": true,
+    "**/app/assets/webpack/helpers/routes.js.*": true,
+    "**/*hot-update.js": true,
+    "**/public/assets/webpack": true,
+    "**/.cache/**": true,
+    "**/.yarn/**": true,
+    "**/.next/**": true,
+    "**/tmp/*/**": true,
+    "**/node_modules/*/**": true,
+    "**/flow-typed/*/**": true,
+    "**/__pycache__/*/**": true,
+    "TAGS": true
+  },
+  /**
+   * Window Settings
+   **/
+  "window.customTitleBarVisibility": "auto",
+  "window.titleBarStyle": "native",
+  "window.nativeTabs": false,
+  // "apc.stylesheet": {
+  //   ".editor .title": "background: transparent !important;",
+  //   // ".editor .title .label-container": "visibility: hidden;",
+  //   // Hide top-right buttons
+  //   // ".editor .title .actions-container .action-item a": "visibility: hidden;",
+  //   // Show top-right "settings goto icon"
+  //   ".editor .title .actions-container .action-item a[title=\"Open Settings (UI)\"]": "visibility: initial;",
+  //   ".editor .title .actions-container .action-item a[title=\"Open Settings (JSON)\"]": "visibility: initial;",
+  //   // Make it the "right-most" icon.
+  //   ".editor .title .actions-container": "flex-direction: row-reverse;",
+  //   // Only show the scrollbar on hover.
+  //   ".editor .scrollbar .slider": "visibility: hidden",
+  //   ".editor .scrollbar:hover .slider": "visibility: initial",
+  //   // Change cursor color.
+  //   ".monaco-editor .cursor": "background: linear-gradient(to bottom, #7f00ff, #e100ff) !important; color: #292D3E !important"
+  // },
+  /**
+    Hidden files
+    **/
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/*.pyc": {
+      "when": "$(basename).py"
+    },
+    "**/__pycache__": true
+  },
+  /**
+   * My own Settings.json
+   **/
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.tabSize": 2, // Use two spaces foreach tab ->
+  "editor.renderWhitespace": "all", // Show whitespace as dots
+  // "editor.renderWhitespace": "all", // Show whitespace as dots
+  "javascript.validate.enable": false,
+  "typescript.validate.enable": true,
+  "scss.validate": false,
+  "less.validate": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "explorer.confirmDragAndDrop": false,
+  "better-comments.highlightPlainText": true,
+  "git.enableSmartCommit": true,
+  "explorer.confirmDelete": false,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescriptreact"
+  ],
+  "git.confirmSync": false,
+  "editor.fontLigatures": "'calt' on, 'liga' on, 'zero' on, 'ss02' off",
+  "explorer.decorations.badges": false,
+  "tailwindCSS.emmetCompletions": true,
+  "files.associations": {
+    "*.js": "javascript",
+    "*.html.erb": "erb"
+  },
+  "tailwindCSS.colorDecorators": true,
+  "prettier.requireConfig": true,
+  "prettier.useEditorConfig": false,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "editor.formatOnSave": "explicit",
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+  "[graphql]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+  "[ruby]": {
+    "editor.formatOnSave": false,
+    "editor.defaultFormatter": "Shopify.ruby-lsp", // Use the Ruby LSP as the default formatter
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.semanticHighlighting.enabled": true,
+    "editor.formatOnType": false,
+  },
+  "[c]": {
+    "editor.defaultFormatter": "xaver.clang-format",
+    "editor.formatOnSave": true
+  },
+  "[erb]": {
+    "editor.defaultFormatter": "Shopify.ruby-lsp",
+    "editor.formatOnSave": false
+  },
+  "css.validate": true,
+  "prettier.enableDebugLogs": true,
+  "togglequotes.chars": [
+    "\"",
+    "`",
+    "'"
+  ],
+  "editor.formatOnPaste": false,
+  /**
+   * Global Prettier Configuration
+   **/
+  // "prettier.tabWidth": 2,
+  // "prettier.useTabs": false,
+  // "prettier.quoteProps": "as-needed",
+  // "prettier.semi": false,
+  // "prettier.arrowParens": "always",
+  // "prettier.printWidth": 100,
+  // "prettier.htmlWhitespaceSensitivity": "css",
+  // "prettier.singleQuote": false,
+  // "prettier.jsxSingleQuote": false,
+  // "prettier.trailingComma": "es5",
+  // "prettier.bracketSpacing": true,
+  // "prettier.proseWrap": "preserve",
+  // "prettier.bracketSameLine": false,
+  // "prettier.ignorePath": ".prettierignore",
+  // "prettier.documentSelectors": [
+  //   "**/*.{ts,tsx,js,jsx}"
+  // ],
+  "ruby.useBundler": true, //run non-lint commands with bundle exec
+  "ruby.useLanguageServer": true, // use the internal language server (see below)
+  "ruby.format": "rubocop", // use rubocop for formatting
+  "editor.inlineSuggest.enabled": true,
+  "github.copilot.enable": {
+    "*": false
+  },
+  "security.workspace.trust.untrustedFiles": "open",
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "typescript": "javascriptreact",
+    "erb": "html"
+  },
+  "redhat.telemetry.enabled": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "gitlens.defaultDateFormat": null,
+  "gitlens.defaultDateShortFormat": null,
+  "gitlens.defaultTimeFormat": null,
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "editor.guides.indentation": false,
+  "simple-project-switcher.projectDirectories": [
+    "~/github.com/buildkite",
+    "~/github.com/mitchbne",
+    "~/github.com/works-on-my-machine",
+    "~/github.com/brisruby",
+    "~/github.com/vercel",
+    "~/github.com/ruby",
+    "~/github.com/rails",
+    "~/github.com/nickattanda",
+    "~/github.com/cressylongford",
+  ],
+  "workbench.sideBar.location": "right",
+  "yaml.validate": false,
+  "gitlens.advanced.blame.customArguments": [
+    "--ignore-revs-file",
+    ".git-blame-ignore-revs"
+  ],
+  "gitlens.showWhatsNewAfterUpgrades": false,
+  "update.mode": "default",
+  "gitlens.advanced.repositorySearchDepth": 100,
+  "editor.suggest.showFiles": false,
+  "update.showReleaseNotes": false,
+  "rubyLsp.rubyVersionManager": {
+    "identifier": "mise"
+  },
+  "rubyLsp.enabledFeatures": {
+    "codeActions": true,
+    "diagnostics": true,
+    "documentHighlights": true,
+    "documentLink": true,
+    "documentSymbols": true,
+    "foldingRanges": true,
+    "formatting": true,
+    "hover": true,
+    "inlayHint": true,
+    "onTypeFormatting": true,
+    "selectionRanges": true,
+    "semanticHighlighting": true,
+    "completion": true,
+    "codeLens": false
+  },
+  "rubyLsp.formatter": "none",
+  "editor.formatOnType": false,
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "editor.accessibilitySupport": "off",
+  "workbench.editor.empty.hint": "hidden",
+  "workbench.activityBar.location": "hidden",
+  "[graphql][javascript][javascriptreact][typescriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+  "workbench.layoutControl.enabled": false,
+  "window.commandCenter": false,
+  "editor.stickyScroll.enabled": false,
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "prisma.showPrismaDataPlatformNotification": false,
+  "github.copilot.editor.enableAutoCompletions": true,
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "explorer.confirmPasteNative": false,
+  "zenMode.showTabs": "none",
+  // Before
+  // "terminal.external.osxExec": "Terminal.app"
+  "terminal.external.osxExec": "Warp.app",
+  "security.promptForLocalFileProtocolHandling": false,
+  "typescript.inlayHints.enumMemberValues.enabled": true,
+  "typescript.inlayHints.parameterTypes.enabled": true,
+  "javascript.inlayHints.variableTypes.enabled": true,
+  "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "erb.erb-lint.suppressERBLintWarnings": false,
+  "screencastMode.fontSize": 24,
+  "screencastMode.keyboardOptions": {
+    "showSingleEditorCursorMoves": false,
+    "showKeys": false
+  },
+  "github.copilot.nextEditSuggestions.enabled": false,
+  "docker.extension.enableComposeLanguageServer": false,
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
+  "[dockercompose]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "advanced",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    },
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "amp.url": "https://ampcode.com/",
+  "editor.wordBasedSuggestions": "off",
+  "amp.tab.enabled": true,
+  "amp.notifications.enabled": true,
+  "amp.permissions": [
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": "*git*push*"
+      },
+      "action": "ask"
+    },
+    {
+      "tool": "mcp__*",
+      "action": "allow"
+    },
+    {
+      "tool": "read_mcp_resource",
+      "action": "allow"
+    },
+    {
+      "tool": "tb__*",
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": "/^(.*\\s+)?(bazel|ibazel)\\s+.*\\/\\/[^\\s]*.*$/"
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": [
+          "ls",
+          "ls *",
+          "dir",
+          "dir *",
+          "cat *",
+          "head *",
+          "tail *",
+          "less *",
+          "more *",
+          "grep *",
+          "egrep *",
+          "fgrep *",
+          "tree",
+          "tree *",
+          "file *",
+          "wc *",
+          "pwd",
+          "stat *",
+          "du *",
+          "df *",
+          "ps *",
+          "top",
+          "htop",
+          "echo *",
+          "printenv *",
+          "id",
+          "which *",
+          "whereis *",
+          "date",
+          "cal *",
+          "uptime",
+          "free *",
+          "ping *",
+          "dig *",
+          "nslookup *",
+          "host *",
+          "netstat *",
+          "ss *",
+          "lsof *",
+          "ifconfig *",
+          "ip *",
+          "man *",
+          "info *",
+          "mkdir *",
+          "touch *",
+          "uname *",
+          "whoami",
+          "go version",
+          "go env *",
+          "go help *",
+          "cargo version",
+          "cargo --version",
+          "cargo help *",
+          "rustc --version",
+          "rustc --help",
+          "rustc --explain *",
+          "javac --version",
+          "javac -version",
+          "javac -help",
+          "javac --help",
+          "dotnet --info",
+          "dotnet --version",
+          "dotnet --help",
+          "dotnet help *",
+          "gcc --version",
+          "gcc -v",
+          "gcc --help",
+          "gcc -dumpversion",
+          "g++ --version",
+          "g++ -v",
+          "g++ --help",
+          "g++ -dumpversion",
+          "clang --version",
+          "clang --help",
+          "clang++ --version",
+          "clang++ --help",
+          "python -V",
+          "python --version",
+          "python -h",
+          "python --help",
+          "python3 -V",
+          "python3 --version",
+          "python3 -h",
+          "python3 --help",
+          "ruby -v",
+          "ruby --version",
+          "ruby -h",
+          "ruby --help",
+          "node -v",
+          "node --version",
+          "node -h",
+          "node --help",
+          "npm --help",
+          "npm --version",
+          "npm -v",
+          "npm help *",
+          "yarn --help",
+          "yarn --version",
+          "yarn -v",
+          "yarn help *",
+          "pnpm --help",
+          "pnpm --version",
+          "pnpm -v",
+          "pnpm help *",
+          "pytest -h",
+          "pytest --help",
+          "pytest --version",
+          "jest --help",
+          "jest --version",
+          "mocha --help",
+          "mocha --version",
+          "make --version",
+          "make --help",
+          "docker --version",
+          "docker --help",
+          "docker version",
+          "docker help *",
+          "git --version",
+          "git --help",
+          "git help *",
+          "git version"
+        ]
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": [
+          "go test *",
+          "go run *",
+          "go build *",
+          "go vet *",
+          "go fmt *",
+          "go list *",
+          "cargo test *",
+          "cargo run *",
+          "cargo build *",
+          "cargo check *",
+          "cargo fmt *",
+          "cargo tree *",
+          "make -n *",
+          "make --dry-run *",
+          "mvn test *",
+          "mvn verify *",
+          "mvn dependency:tree *",
+          "gradle tasks *",
+          "gradle dependencies *",
+          "gradle properties *",
+          "dotnet test *",
+          "dotnet list *",
+          "python -c *",
+          "ruby -e *",
+          "node -e *",
+          "npm list *",
+          "npm ls *",
+          "npm outdated *",
+          "npm test*",
+          "npm run*",
+          "npm view *",
+          "npm info *",
+          "yarn list*",
+          "yarn ls *",
+          "yarn info *",
+          "yarn test*",
+          "yarn run *",
+          "yarn why *",
+          "pnpm list*",
+          "pnpm ls *",
+          "pnpm outdated *",
+          "pnpm test*",
+          "pnpm run *",
+          "pytest --collect-only *",
+          "jest --listTests *",
+          "jest --showConfig *",
+          "mocha --list *",
+          "git status*",
+          "git show *",
+          "git diff*",
+          "git grep *",
+          "git branch *",
+          "git tag *",
+          "git remote -v *",
+          "git rev-parse --is-inside-work-tree *",
+          "git rev-parse --show-toplevel *",
+          "git config --list *",
+          "git log *"
+        ]
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": [
+          "./gradlew *",
+          "./mvnw *",
+          "./build.sh *",
+          "./configure *",
+          "cmake *",
+          "./node_modules/.bin/tsc *",
+          "./node_modules/.bin/eslint *",
+          "./node_modules/.bin/prettier *",
+          "prettier *",
+          "./node_modules/.bin/tailwindcss *",
+          "./node_modules/.bin/tsx *",
+          "./node_modules/.bin/vite *",
+          "bun *",
+          "tsx *",
+          "vite *"
+        ]
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": [
+          ".venv/bin/activate *",
+          ".venv/Scripts/activate *",
+          "source .venv/bin/activate *",
+          "source venv/bin/activate *",
+          "pip list *",
+          "pip show *",
+          "pip check *",
+          "pip freeze *",
+          "uv *",
+          "poetry show *",
+          "poetry check *",
+          "pipenv check *"
+        ]
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": [
+          "asdf list *",
+          "asdf current *",
+          "asdf which *",
+          "mise list *",
+          "mise current *",
+          "mise which *",
+          "mise use *",
+          "rbenv version *",
+          "rbenv versions *",
+          "rbenv which *",
+          "nvm list *",
+          "nvm current *",
+          "nvm which *"
+        ]
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": [
+          "./test*",
+          "./run_tests.sh *",
+          "./run_*_tests.sh *",
+          "vitest *",
+          "bundle exec rspec *",
+          "bundle exec rubocop *",
+          "rspec *",
+          "rubocop *",
+          "swiftlint *",
+          "clippy *",
+          "ruff *",
+          "black *",
+          "isort *",
+          "mypy *",
+          "flake8 *",
+          "bandit *",
+          "safety *",
+          "biome check *",
+          "biome format *"
+        ]
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": [
+          "rails server *",
+          "rails s *",
+          "bin/rails server *",
+          "bin/rails s *",
+          "flask run *",
+          "django-admin runserver *",
+          "python manage.py runserver *",
+          "uvicorn *",
+          "streamlit run *"
+        ]
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": [
+          "bin/rails db:status",
+          "bin/rails db:version",
+          "rails db:rollback *",
+          "rails db:status *",
+          "rails db:version *",
+          "alembic current *",
+          "alembic history *",
+          "bundle exec rails db:status",
+          "bundle exec rails db:version"
+        ]
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": [
+          "bin/rspec *",
+          "bin/each_rspec_mode *",
+          "bin/setup",
+          "bundle install *",
+          "bundle show *"
+        ]
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": [
+          "docker ps *",
+          "docker images *",
+          "docker logs *",
+          "docker inspect *",
+          "docker info *",
+          "docker stats *",
+          "docker system df *",
+          "docker system info *",
+          "podman ps *",
+          "podman images *",
+          "podman logs *",
+          "podman inspect *",
+          "podman info *"
+        ]
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": [
+          "aws --version *",
+          "aws configure list *",
+          "aws sts get-caller-identity *",
+          "aws s3 ls *",
+          "gcloud config list *",
+          "gcloud auth list *",
+          "gcloud projects list *",
+          "az account list *",
+          "az account show *",
+          "kubectl get *",
+          "kubectl describe *",
+          "kubectl logs *",
+          "kubectl version *",
+          "helm list *",
+          "helm status *",
+          "helm version *"
+        ]
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": [
+          "swift build *",
+          "swift test *",
+          "zig build *",
+          "zig build test*",
+          "kotlinc *",
+          "scalac *",
+          "javac *",
+          "javap *",
+          "clang *",
+          "jar *",
+          "sbt *",
+          "gradle *",
+          "bazel build *",
+          "bazel test *",
+          "bazel run *",
+          "mix *",
+          "lua *",
+          "ruby *",
+          "php *"
+        ]
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": [
+          "mkdir -p *",
+          "chmod +x *",
+          "dos2unix *",
+          "unix2dos *",
+          "ln -s *"
+        ]
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": [
+          "for *",
+          "while *",
+          "do *",
+          "done *",
+          "if *",
+          "then *",
+          "else *",
+          "elif *",
+          "fi *",
+          "case *",
+          "esac *",
+          "in *",
+          "function *",
+          "select *",
+          "until *",
+          "{ *",
+          "} *",
+          "[[ *",
+          "]] *"
+        ]
+      },
+      "action": "ask"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": [
+          "yarn typecheck *",
+          "yarn lint *"
+        ]
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": "/^find(?!.*(-delete|-exec|-execdir)).*$/"
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": "/^(echo|ls|pwd|date|whoami|id|uname)\\s.*[&|;].*\\s*(echo|ls|pwd|date|whoami|id|uname)($|\\s.*)/"
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": "/^(cat|grep|head|tail|less|more|find)\\s.*\\|\\s*(grep|head|tail|less|more|wc|sort|uniq)($|\\s.*)/"
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": "/^rm\\s+.*(-[rf].*-[rf]|-[rf]{2,}|--recursive.*--force|--force.*--recursive).*$/"
+      },
+      "action": "ask"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": "/^find.*(-delete|-exec|-execdir).*$/"
+      },
+      "action": "ask"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": "/^(ls|cat|grep|head|tail|file|stat)\\s+[^/]*$/"
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": "/^(?!.*(rm|mv|cp|chmod|chown|sudo|su|dd)\\b).*/dev/(null|zero|stdout|stderr|stdin).*$/"
+      },
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "matches": {
+        "cmd": "/(^|\\s)(\\/(?!dev\\/(null|zero|stdout|stderr|stdin))[^\\s]*|\\.\\.\\/)(?![^\\s]*\\.(log|txt|md|json|yml|yaml)$)/"
+      },
+      "action": "ask"
+    },
+    {
+      "tool": "Bash",
+      "action": "ask"
+    },
+    {
+      "tool": "Glob",
+      "action": "allow"
+    },
+    {
+      "tool": "Task",
+      "action": "allow"
+    },
+    {
+      "tool": "task_list",
+      "action": "allow"
+    },
+    {
+      "tool": "finder",
+      "action": "allow"
+    },
+    {
+      "tool": "get_diagnostics",
+      "action": "allow"
+    },
+    {
+      "tool": "Bash",
+      "action": "allow"
+    },
+    {
+      "tool": "oracle",
+      "action": "allow"
+    },
+    {
+      "tool": "painter",
+      "action": "allow"
+    },
+    {
+      "tool": "mermaid",
+      "action": "allow"
+    },
+    {
+      "tool": "todo_read",
+      "action": "allow"
+    },
+    {
+      "tool": "todo_write",
+      "action": "allow"
+    },
+    {
+      "tool": "read_web_page",
+      "action": "allow"
+    },
+    {
+      "tool": "create_file",
+      "action": "allow"
+    },
+    {
+      "tool": "glob",
+      "action": "allow"
+    },
+    {
+      "tool": "Glob",
+      "action": "allow"
+    },
+    {
+      "tool": "undo_edit",
+      "action": "allow"
+    },
+    {
+      "tool": "Read",
+      "action": "allow"
+    },
+    {
+      "tool": "edit_file",
+      "action": "allow"
+    },
+    {
+      "tool": "delete_file",
+      "action": "allow"
+    },
+    {
+      "tool": "format_file",
+      "action": "allow"
+    },
+    {
+      "tool": "web_search",
+      "action": "allow"
+    },
+    {
+      "tool": "Grep",
+      "action": "allow"
+    },
+    {
+      "tool": "search_documents",
+      "action": "allow"
+    },
+    {
+      "tool": "get_document",
+      "action": "allow"
+    },
+    {
+      "tool": "Check",
+      "action": "allow"
+    },
+    {
+      "tool": "code_review",
+      "action": "allow"
+    },
+    {
+      "tool": "kraken",
+      "action": "allow"
+    },
+    {
+      "tool": "look_at",
+      "action": "allow"
+    },
+    {
+      "tool": "librarian",
+      "action": "allow"
+    },
+    {
+      "tool": "bookkeeper",
+      "action": "allow"
+    },
+    {
+      "tool": "read_thread",
+      "action": "allow"
+    },
+    {
+      "tool": "find_thread",
+      "action": "allow"
+    },
+    {
+      "tool": "skill",
+      "action": "allow"
+    },
+    {
+      "tool": "read_github",
+      "action": "allow"
+    },
+    {
+      "tool": "search_github",
+      "action": "allow"
+    },
+    {
+      "tool": "commit_search",
+      "action": "allow"
+    },
+    {
+      "tool": "list_directory_github",
+      "action": "allow"
+    },
+    {
+      "tool": "list_repositories",
+      "action": "allow"
+    },
+    {
+      "tool": "glob_github",
+      "action": "allow"
+    },
+    {
+      "tool": "diff",
+      "action": "allow"
+    },
+    {
+      "tool": "describe_workbook",
+      "action": "allow"
+    },
+    {
+      "tool": "execute_query",
+      "action": "allow"
+    },
+    {
+      "tool": "handoff",
+      "action": "allow"
+    }
+  ],
+  "workbench.editor.enablePreview": false,
+  "workbench.editorAssociations": {
+    "git-rebase-todo": "default"
+  },
+  "terminal.integrated.profiles.osx": {
+    "zsh (login)": {
+      "path": "zsh",
+      "args": [
+        "-l",
+        "-i"
+      ]
+    }
+  },
+  "terminal.integrated.defaultProfile.osx": "zsh (login)",
+  "workbench.colorTheme": "Palenight (Mild Contrast)",
+  "tailwindCSS.experimental.classRegex": []
+}

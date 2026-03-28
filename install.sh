@@ -44,6 +44,13 @@ mkdir -p ~/.config/mise
 ln -sf "$DOTFILES_DIR/config/mise/config.toml" ~/.config/mise/config.toml
 echo "  ✓ ~/.config/mise/config.toml"
 
+# VS Code
+VSCODE_DIR="$HOME/Library/Application Support/Code/User"
+mkdir -p "$VSCODE_DIR"
+ln -sf "$DOTFILES_DIR/config/vscode/settings.json" "$VSCODE_DIR/settings.json"
+ln -sf "$DOTFILES_DIR/config/vscode/keybindings.json" "$VSCODE_DIR/keybindings.json"
+echo "  ✓ VS Code settings + keybindings"
+
 # Fonts
 echo "📦 Installing fonts..."
 mkdir -p ~/Library/Fonts
