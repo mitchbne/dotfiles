@@ -8,3 +8,14 @@ compile = false
 go = "1.22.3"
 node = "22.14.0"
 ruby = "3.4.5"
+
+# CLI tools
+starship = "latest"
+github-cli = "latest"
+ripgrep = "latest"
+jq = "latest"
+shellcheck = "latest"
+overmind = "latest"
+k9s = "latest"
+helm = "latest"
+tflint = "latest"

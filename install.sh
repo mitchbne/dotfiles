@@ -64,7 +64,10 @@ if ! command -v brew &>/dev/null; then
 fi
 
 echo "🍺 Installing brew packages..."
-brew install starship zsh-autosuggestions mise
+brew install mise zsh-autosuggestions puma-dev awscli
+
+echo "🔧 Installing tools via mise..."
+mise install
 
 echo ""
 echo "✅ Done! Restart your shell: exec zsh"
