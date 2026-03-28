@@ -2,18 +2,17 @@
 # Docs: https://starship.rs/config/
 
 format = """
-$directory\
-$git_branch\
-$git_status\
-$character"""
+$directory$git_branch$git_status$ruby$nodejs$golang$status$cmd_duration$fill$time$line_break$character"""
 
 [directory]
-truncation_length = 3
-truncate_to_repo = true
+truncate_to_repo = false
+truncation_length = 0
 style = "bold cyan"
+read_only = " "
 
 [git_branch]
-format = " on [$branch]($style) "
+format = "on [$symbol$branch]($style) "
+symbol = " "
 style = "bold yellow"
 
 [git_status]
@@ -27,6 +26,48 @@ ahead = "⇡${count}"
 behind = "⇣${count}"
 diverged = "⇕⇡${ahead_count}⇣${behind_count}"
 
+[ruby]
+format = "[$symbol($version)]($style) "
+symbol = " "
+style = "bold red"
+detect_files = ["Gemfile", ".ruby-version"]
+
+[nodejs]
+format = "[$symbol($version)]($style) "
+symbol = " "
+style = "bold green"
+
+[golang]
+format = "[$symbol($version)]($style) "
+symbol = " "
+style = "bold cyan"
+
+[status]
+disabled = false
+format = '[\[$status\]]($style) '
+symbol = ""
+success_symbol = ""
+style = "bold red"
+
+[cmd_duration]
+min_time = 0
+format = "took [$duration]($style) "
+style = "bold yellow"
+show_milliseconds = true
+
+[fill]
+style = "dimmed white"
+symbol = " "
+
+[time]
+disabled = false
+format = "[$time]($style) "
+style = "dimmed white"
+time_format = "%H:%M:%S"
+
+[line_break]
+disabled = false
+
 [character]
-success_symbol = "[❯](bold green)"
-error_symbol = "[❯](bold red)"
+success_symbol = "[→](bold green)"
+error_symbol = "[→](bold red)"

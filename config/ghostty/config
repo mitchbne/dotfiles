@@ -1,9 +1,13 @@
 # Theme (try: ghostty +list-themes to see all options)
-theme = catppuccin-mocha
+theme = Dracula
 
-# Font
-font-family = JetBrains Mono
-font-size = 14
+# Font (MonoLisa primary, Symbols Nerd Font as fallback for icons)
+font-family = MonoLisa
+font-family = Symbols Nerd Font Mono
+font-family-bold = MonoLisa Bold
+font-family-italic = MonoLisa Regular Italic
+font-family-bold-italic = MonoLisa Bold Italic
+font-size = 16
 
 # Window
 window-padding-x = 12
