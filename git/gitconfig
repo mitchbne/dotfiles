@@ -1,0 +1,52 @@
+[includeIf "gitdir:~/github.com/buildkite/"]
+	path = ~/.gitconfig.work
+
+[color]
+	ui = true
+[user]
+	name = Mitch Smith
+	email = 37649155+mitchbne@users.noreply.github.com
+[push]
+	autoSetupRemote = true
+[pull]
+	rebase = true
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
+[diff]
+	colorMoved = zebra
+[log]
+	date = local
+[rerere]
+	enabled = true
+	autoupdate = true
+[init]
+	defaultBranch = main
+[core]
+	excludesfile = /Users/mitchsmith/.gitignore
+	untrackedCache = true
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[rebase]
+	autostash = true
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
+[url "https://github.com/"]
+	insteadOf = git@github.com:
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[help]
+	autocorrect = prompt
+[submodule]
+	recurse = true
+[credential]
+	helper = !/opt/homebrew/bin/gh auth git-credential

@@ -1,0 +1,32 @@
+# Starship prompt config
+# Docs: https://starship.rs/config/
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$character"""
+
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+style = "bold cyan"
+
+[git_branch]
+format = " on [$branch]($style) "
+style = "bold yellow"
+
+[git_status]
+format = '([$all_status$ahead_behind]($style) )'
+style = "bold red"
+modified = "~${count}"
+staged = "+${count}"
+untracked = "?${count}"
+deleted = "-${count}"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
