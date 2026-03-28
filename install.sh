@@ -64,7 +64,7 @@ if ! command -v brew &>/dev/null; then
 fi
 
 echo "🍺 Installing brew packages..."
-brew install mise zsh-autosuggestions puma-dev awscli
+brew install mise zsh-autosuggestions puma-dev awscli buildkite-agent bk@3
 
 echo "🔧 Installing tools via mise..."
 mise install
