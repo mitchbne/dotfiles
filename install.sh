@@ -11,8 +11,8 @@ if ! command -v brew &>/dev/null; then
 fi
 
 # GitHub CLI (needed for private repo auth)
-echo "🍺 Installing essentials..."
-brew install gh mise zsh-autosuggestions puma-dev awscli buildkite-agent bk@3
+echo "🍺 Installing brew packages..."
+brew bundle --file="$DOTFILES_DIR/Brewfile"
 
 if ! gh auth status &>/dev/null; then
   echo "🔑 Authenticate with GitHub..."

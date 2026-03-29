@@ -1,0 +1,17 @@
+# Core (needed by install script)
+brew "gh"
+brew "mise"
+brew "zsh-autosuggestions"
+
+# Dev tools (not managed by mise)
+brew "puma-dev"
+brew "awscli"
+brew "buildkite-agent"
+brew "bk@3"
+
+# Casks
+cask "ghostty"
+cask "orbstack"
+cask "1password-cli"
+cask "scroll-reverser"
+cask "font-symbols-only-nerd-font"
