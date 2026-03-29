@@ -45,6 +45,7 @@ ln -sf "$DOTFILES_DIR/config/starship/starship.toml" ~/.config/starship.toml
 echo "  ✓ ~/.config/starship.toml"
 
 # Amp (private repo)
+rm -rf /tmp/amp-skills-private
 if gh repo clone mitchbne/amp-skills-private /tmp/amp-skills-private 2>/dev/null; then
   mkdir -p ~/.config/amp ~/.config/agents
   cp /tmp/amp-skills-private/AGENTS.md ~/.config/amp/AGENTS.md
@@ -75,6 +76,7 @@ fi
 # Fonts (private repo)
 echo "📦 Installing fonts..."
 mkdir -p ~/Library/Fonts
+rm -rf /tmp/fonts-private
 if gh repo clone mitchbne/fonts-private /tmp/fonts-private 2>/dev/null; then
   cp -n /tmp/fonts-private/*.ttf ~/Library/Fonts/
   rm -rf /tmp/fonts-private
