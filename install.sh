@@ -28,16 +28,17 @@ echo "  ✓ ~/.config/ghostty/config"
 ln -sf "$DOTFILES_DIR/config/starship/starship.toml" ~/.config/starship.toml
 echo "  ✓ ~/.config/starship.toml"
 
-# Amp
-mkdir -p ~/.config/amp
-ln -sf "$DOTFILES_DIR/config/amp/AGENTS.md" ~/.config/amp/AGENTS.md
-ln -sf "$DOTFILES_DIR/config/amp/settings.json" ~/.config/amp/settings.json
-echo "  ✓ ~/.config/amp/"
-
-# Amp skills
-mkdir -p ~/.config/agents
-ln -sfn "$DOTFILES_DIR/config/agents/skills" ~/.config/agents/skills
-echo "  ✓ ~/.config/agents/skills"
+# Amp (private repo)
+if git clone git@github.com:mitchbne/amp-skills-private.git /tmp/amp-skills-private 2>/dev/null; then
+  mkdir -p ~/.config/amp ~/.config/agents
+  cp /tmp/amp-skills-private/AGENTS.md ~/.config/amp/AGENTS.md
+  cp /tmp/amp-skills-private/settings.json ~/.config/amp/settings.json
+  cp -r /tmp/amp-skills-private/skills ~/.config/agents/skills
+  rm -rf /tmp/amp-skills-private
+  echo "  ✓ Amp skills, AGENTS.md, settings"
+else
+  echo "  ⚠️  Amp skills repo not accessible — set up manually"
+fi
 
 # Mise
 mkdir -p ~/.config/mise
