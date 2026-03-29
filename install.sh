@@ -51,11 +51,16 @@ ln -sf "$DOTFILES_DIR/config/vscode/settings.json" "$VSCODE_DIR/settings.json"
 ln -sf "$DOTFILES_DIR/config/vscode/keybindings.json" "$VSCODE_DIR/keybindings.json"
 echo "  ✓ VS Code settings + keybindings"
 
-# Fonts
+# Fonts (private repo)
 echo "📦 Installing fonts..."
 mkdir -p ~/Library/Fonts
-cp -n "$DOTFILES_DIR/fonts/"*.ttf ~/Library/Fonts/ 2>/dev/null || true
-echo "  ✓ MonoLisa fonts"
+if git clone git@github.com:mitchbne/fonts-private.git /tmp/fonts-private 2>/dev/null; then
+  cp -n /tmp/fonts-private/*.ttf ~/Library/Fonts/
+  rm -rf /tmp/fonts-private
+  echo "  ✓ MonoLisa fonts"
+else
+  echo "  ⚠️  Fonts repo not accessible — install MonoLisa manually"
+fi
 
 # Homebrew dependencies
 if ! command -v brew &>/dev/null; then
