@@ -96,29 +96,11 @@ BUILDKITE_ORG_DIR="$HOME/github.com/buildkite"
 
 alias mitchbne="cd $HOME/github.com/mitchbne"
 alias "cdbk"="cd $BUILDKITE_ORG_DIR/buildkite"
-alias ops="cd $BUILDKITE_ORG_DIR/ops"
-alias update-to-latest-main="git fetch && git rebase -i origin/main"
-
 function kill-process-by-port {
   local port=$1
   lsof -i -P -n | grep LISTEN | grep -i "$port" | awk 'NR > 1 {print $2}' | xargs -n1 kill -9
 }
 
-function bk-kill {
-  pushd $BUILDKITE_ORG_DIR/buildkite &> /dev/null
-    kill-process-by-port ":3\d\d\d\s"
-    rm -rf .overmind.sock
-  popd &> /dev/null
-}
-
-function bk-server {
-  pushd $BUILDKITE_ORG_DIR/buildkite &> /dev/null
-    overmind start
-  popd &> /dev/null
-}
-
-alias "bk-start"="bk-server"
-alias "bk-stop"="bk-kill"
 alias "quick-setup"="cd $BUILDKITE_ORG_DIR/buildkite && (bundle check || bundle) && bin/rails db:prepare && yarn && echo 'Setup complete!'"
 
 function bk-console {
@@ -152,8 +134,6 @@ function bk-recognize-path {
   popd &> /dev/null
 }
 
-alias bk-upgrade-agent="brew update && brew upgrade buildkite-agent"
-
 export PROCFILE_RUNNER="overmind"
 
 export BUILDKITE_ACCESS_TOKEN="[REDACTED:buildkite-agent-token]"
@@ -166,10 +146,6 @@ function prod-console {
   fi
 }
 
-function buildkite-console {
-  prod-console "bin/rails c"
-}
-
 function quarantine {
   local filename=$1
 
@@ -180,23 +156,6 @@ function quarantine {
   fi
 
   xattr -d com.apple.quarantine $filename
-}
-
-function buildkite-db {
-  if [ -z "$DB" ]; then
-    echo "No database specified"
-    echo "Usage: DB=<database> buildkite-db"
-    return 1
-  fi
-
-  prod-console "apt-get update && apt-get install -y postgresql-client && DB=$DB bin/deploy psql"
-}
-
-# thefuck - lazy loaded
-fuck() {
-  unfunction fuck
-  eval $(thefuck --alias)
-  fuck "$@"
 }
 
 # bun completions
@@ -212,18 +171,6 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-
-# flyctl
-export FLYCTL_INSTALL="/Users/mitchsmith/.fly"
-export PATH="$FLYCTL_INSTALL/bin:$PATH"
-
-# gcloud - lazy loaded
-gcloud() {
-  unfunction gcloud
-  [ -f '/Users/mitchsmith/Downloads/google-cloud-sdk/path.zsh.inc' ] && . '/Users/mitchsmith/Downloads/google-cloud-sdk/path.zsh.inc'
-  [ -f '/Users/mitchsmith/Downloads/google-cloud-sdk/completion.zsh.inc' ] && . '/Users/mitchsmith/Downloads/google-cloud-sdk/completion.zsh.inc'
-  gcloud "$@"
-}
 
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 export PATH="/Users/mitchsmith/.codeium/windsurf/bin:$PATH"
