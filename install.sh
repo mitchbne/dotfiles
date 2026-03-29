@@ -67,6 +67,10 @@ mkdir -p "$VSCODE_DIR"
 ln -sf "$DOTFILES_DIR/config/vscode/settings.json" "$VSCODE_DIR/settings.json"
 ln -sf "$DOTFILES_DIR/config/vscode/keybindings.json" "$VSCODE_DIR/keybindings.json"
 echo "  ✓ VS Code settings + keybindings"
+if command -v code &>/dev/null && [ -f "$DOTFILES_DIR/config/vscode/extensions.txt" ]; then
+  xargs -n1 code --install-extension < "$DOTFILES_DIR/config/vscode/extensions.txt"
+  echo "  ✓ VS Code extensions"
+fi
 
 # Fonts (private repo)
 echo "📦 Installing fonts..."
