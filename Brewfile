@@ -4,7 +4,8 @@ brew "mise"
 brew "zsh-autosuggestions"
 
 # Dev tools (not managed by mise)
-brew "puma-dev"
+tap "puma/puma"
+brew "puma/puma/puma-dev"
 brew "awscli"
 brew "buildkite-agent"
 brew "bk@3"
