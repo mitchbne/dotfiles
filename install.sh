@@ -3,6 +3,22 @@ set -e
 
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 
+# Homebrew (needed first for everything else)
+if ! command -v brew &>/dev/null; then
+  echo "🍺 Installing Homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# GitHub CLI (needed for private repo auth)
+echo "🍺 Installing essentials..."
+brew install gh mise zsh-autosuggestions puma-dev awscli buildkite-agent bk@3
+
+if ! gh auth status &>/dev/null; then
+  echo "🔑 Authenticate with GitHub..."
+  gh auth login
+fi
+
 echo "🔗 Linking dotfiles..."
 
 # Shell
@@ -29,7 +45,7 @@ ln -sf "$DOTFILES_DIR/config/starship/starship.toml" ~/.config/starship.toml
 echo "  ✓ ~/.config/starship.toml"
 
 # Amp (private repo)
-if git clone git@github.com:mitchbne/amp-skills-private.git /tmp/amp-skills-private 2>/dev/null; then
+if gh repo clone mitchbne/amp-skills-private /tmp/amp-skills-private 2>/dev/null; then
   mkdir -p ~/.config/amp ~/.config/agents
   cp /tmp/amp-skills-private/AGENTS.md ~/.config/amp/AGENTS.md
   cp /tmp/amp-skills-private/settings.json ~/.config/amp/settings.json
@@ -55,22 +71,13 @@ echo "  ✓ VS Code settings + keybindings"
 # Fonts (private repo)
 echo "📦 Installing fonts..."
 mkdir -p ~/Library/Fonts
-if git clone git@github.com:mitchbne/fonts-private.git /tmp/fonts-private 2>/dev/null; then
+if gh repo clone mitchbne/fonts-private /tmp/fonts-private 2>/dev/null; then
   cp -n /tmp/fonts-private/*.ttf ~/Library/Fonts/
   rm -rf /tmp/fonts-private
   echo "  ✓ MonoLisa fonts"
 else
   echo "  ⚠️  Fonts repo not accessible — install MonoLisa manually"
 fi
-
-# Homebrew dependencies
-if ! command -v brew &>/dev/null; then
-  echo "🍺 Installing Homebrew..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi
-
-echo "🍺 Installing brew packages..."
-brew install mise zsh-autosuggestions puma-dev awscli buildkite-agent bk@3
 
 echo "🔧 Installing tools via mise..."
 mise install
