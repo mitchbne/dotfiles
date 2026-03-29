@@ -4,11 +4,11 @@ set -e
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # Homebrew (needed first for everything else)
-if ! command -v brew &>/dev/null; then
+if [ ! -x /opt/homebrew/bin/brew ] && [ ! -x /usr/local/bin/brew ]; then
   echo "🍺 Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
+eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv 2>/dev/null)"
 
 # GitHub CLI (needed for private repo auth)
 echo "🍺 Installing brew packages..."
