@@ -91,7 +91,7 @@ eval "$(starship init zsh)"
 export PATH="$PATH:$HOME/go/bin"
 
 # Alias area
-export BUNDLER_EDITOR="windsurf -n"
+export BUNDLER_EDITOR="code -n"
 BUILDKITE_ORG_DIR="$HOME/github.com/buildkite"
 
 alias mitchbne="cd $HOME/github.com/mitchbne"
@@ -173,5 +173,4 @@ case ":$PATH:" in
 esac
 
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-export PATH="/Users/mitchsmith/.codeium/windsurf/bin:$PATH"
 export PATH="/Users/mitchsmith/.local/bin:$PATH"
