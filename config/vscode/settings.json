@@ -112,22 +112,7 @@
   "window.customTitleBarVisibility": "auto",
   "window.titleBarStyle": "native",
   "window.nativeTabs": false,
-  // "apc.stylesheet": {
-  //   ".editor .title": "background: transparent !important;",
-  //   // ".editor .title .label-container": "visibility: hidden;",
-  //   // Hide top-right buttons
-  //   // ".editor .title .actions-container .action-item a": "visibility: hidden;",
-  //   // Show top-right "settings goto icon"
-  //   ".editor .title .actions-container .action-item a[title=\"Open Settings (UI)\"]": "visibility: initial;",
-  //   ".editor .title .actions-container .action-item a[title=\"Open Settings (JSON)\"]": "visibility: initial;",
-  //   // Make it the "right-most" icon.
-  //   ".editor .title .actions-container": "flex-direction: row-reverse;",
-  //   // Only show the scrollbar on hover.
-  //   ".editor .scrollbar .slider": "visibility: hidden",
-  //   ".editor .scrollbar:hover .slider": "visibility: initial",
-  //   // Change cursor color.
-  //   ".monaco-editor .cursor": "background: linear-gradient(to bottom, #7f00ff, #e100ff) !important; color: #292D3E !important"
-  // },
+
   /**
     Hidden files
     **/
@@ -217,10 +202,7 @@
     "editor.semanticHighlighting.enabled": true,
     "editor.formatOnType": false,
   },
-  "[c]": {
-    "editor.defaultFormatter": "xaver.clang-format",
-    "editor.formatOnSave": true
-  },
+
   "[erb]": {
     "editor.defaultFormatter": "Shopify.ruby-lsp",
     "editor.formatOnSave": false
@@ -253,9 +235,6 @@
   // "prettier.documentSelectors": [
   //   "**/*.{ts,tsx,js,jsx}"
   // ],
-  "ruby.useBundler": true, //run non-lint commands with bundle exec
-  "ruby.useLanguageServer": true, // use the internal language server (see below)
-  "ruby.format": "rubocop", // use rubocop for formatting
   "editor.inlineSuggest.enabled": true,
   "github.copilot.enable": {
     "*": false
@@ -330,7 +309,6 @@
   "workbench.layoutControl.enabled": false,
   "window.commandCenter": false,
   "editor.stickyScroll.enabled": false,
-  "C_Cpp.intelliSenseEngine": "disabled",
   "prisma.showPrismaDataPlatformNotification": false,
   "github.copilot.editor.enableAutoCompletions": true,
   "[json]": {
