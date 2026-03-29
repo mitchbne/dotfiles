@@ -45,13 +45,15 @@ ln -sf "$DOTFILES_DIR/config/starship/starship.toml" ~/.config/starship.toml
 echo "  ✓ ~/.config/starship.toml"
 
 # Amp (private repo)
-rm -rf /tmp/amp-skills-private
-if gh repo clone mitchbne/amp-skills-private /tmp/amp-skills-private 2>/dev/null; then
+AMP_SKILLS_DIR="$HOME/github.com/mitchbne/amp-skills-private"
+if [ ! -d "$AMP_SKILLS_DIR" ]; then
+  gh repo clone mitchbne/amp-skills-private "$AMP_SKILLS_DIR" 2>/dev/null
+fi
+if [ -d "$AMP_SKILLS_DIR" ]; then
   mkdir -p ~/.config/amp ~/.config/agents
-  cp /tmp/amp-skills-private/AGENTS.md ~/.config/amp/AGENTS.md
-  cp /tmp/amp-skills-private/settings.json ~/.config/amp/settings.json
-  cp -r /tmp/amp-skills-private/skills ~/.config/agents/skills
-  rm -rf /tmp/amp-skills-private
+  ln -sf "$AMP_SKILLS_DIR/AGENTS.md" ~/.config/amp/AGENTS.md
+  ln -sf "$AMP_SKILLS_DIR/settings.json" ~/.config/amp/settings.json
+  ln -sfn "$AMP_SKILLS_DIR/skills" ~/.config/agents/skills
   echo "  ✓ Amp skills, AGENTS.md, settings"
 else
   echo "  ⚠️  Amp skills repo not accessible — set up manually"
