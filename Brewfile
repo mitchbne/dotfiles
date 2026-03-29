@@ -12,7 +12,6 @@ brew "buildkite/buildkite/buildkite-agent"
 brew "buildkite/buildkite/bk@3"
 
 # Casks
-cask "ghostty"
 cask "orbstack"
 cask "1password-cli"
 cask "scroll-reverser"

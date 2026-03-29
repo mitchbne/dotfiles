@@ -35,6 +35,13 @@ echo "  ✓ ~/.gitconfig, ~/.gitconfig.work, ~/.gitignore"
 ln -sf "$DOTFILES_DIR/railsrc" ~/.railsrc
 echo "  ✓ ~/.railsrc"
 
+# Custom bin scripts
+mkdir -p ~/.local/bin
+for script in "$DOTFILES_DIR/bin/"*; do
+  ln -sf "$script" ~/.local/bin/
+done
+echo "  ✓ ~/.local/bin scripts"
+
 # Ghostty
 mkdir -p ~/.config/ghostty
 ln -sf "$DOTFILES_DIR/config/ghostty/config" ~/.config/ghostty/config

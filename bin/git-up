@@ -1,0 +1,136 @@
+#!/bin/bash
+set -e
+
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+WHITE='\033[0;37m'
+NC='\033[0m'
+
+git fetch --all --prune --quiet
+
+current=$(git branch --show-current)
+
+branches=($(git for-each-ref --format='%(refname:short)' refs/heads/))
+statuses=()
+actions=()
+max_len=0
+
+for branch in "${branches[@]}"; do
+  [ ${#branch} -gt $max_len ] && max_len=${#branch}
+  statuses+=("")
+  actions+=("")
+done
+
+print_table() {
+  for i in "${!branches[@]}"; do
+    printf "%-${max_len}s  %b\033[K\n" "${branches[$i]}" "${statuses[$i]}"
+  done
+}
+
+move_up() {
+  printf "\033[%dA" "${#branches[@]}"
+}
+
+check_branch() {
+  local i=$1
+  local branch=$2
+  
+  # Check upstream
+  local remote=$(git config --get "branch.$branch.remote" 2>/dev/null) || echo ""
+  local upstream_ref=$(git config --get "branch.$branch.merge" 2>/dev/null | sed 's|refs/heads/||') || echo ""
+  
+  if [ -z "$remote" ] || [ -z "$upstream_ref" ]; then
+    # No upstream configured
+    if [ "$remote" = "origin" ] && ! git rev-parse --verify "origin/$branch" >/dev/null 2>&1; then
+      echo "$i:prune"
+    else
+      echo "$i:local"
+    fi
+    return
+  fi
+  
+  local upstream="$remote/$upstream_ref"
+  
+  if ! git rev-parse --verify "$upstream" >/dev/null 2>&1; then
+    # Upstream branch gone
+    if [ "$remote" = "origin" ]; then
+      echo "$i:prune"
+    else
+      echo "$i:local"
+    fi
+    return
+  fi
+  
+  local local_sha=$(git rev-parse "$branch")
+  local remote_sha=$(git rev-parse "$upstream")
+  local base_sha=$(git merge-base "$branch" "$upstream")
+  
+  if [ "$local_sha" = "$remote_sha" ]; then
+    echo "$i:uptodate"
+  elif [ "$remote_sha" = "$base_sha" ]; then
+    echo "$i:uptodate"
+  elif [ "$local_sha" = "$base_sha" ]; then
+    echo "$i:fastforward"
+  else
+    echo "$i:rebase"
+  fi
+}
+
+# Check all branches (fast - no checkout needed)
+for i in "${!branches[@]}"; do
+  result=$(check_branch "$i" "${branches[$i]}")
+  idx="${result%%:*}"
+  action="${result#*:}"
+  actions[$idx]="$action"
+  
+  case "$action" in
+    uptodate) statuses[$idx]="${GREEN}up to date${NC}" ;;
+    local) statuses[$idx]="${YELLOW}local only${NC}" ;;
+    *) statuses[$idx]="${WHITE}pending${NC}" ;;
+  esac
+done
+
+print_table
+
+# Execute actions that require checkout
+for i in "${!branches[@]}"; do
+  branch="${branches[$i]}"
+  action="${actions[$i]}"
+  
+  case "$action" in
+    prune)
+      statuses[$i]="${YELLOW}pruning...${NC}"
+      move_up
+      print_table
+      if git branch -D "$branch" --quiet 2>/dev/null; then
+        statuses[$i]="${GREEN}pruned${NC}"
+      else
+        statuses[$i]="${YELLOW}in worktree${NC}"
+      fi
+      move_up
+      print_table
+      ;;
+    fastforward)
+      statuses[$i]="${YELLOW}fast-forwarding...${NC}"
+      move_up
+      print_table
+      git checkout "$branch" --quiet 2>/dev/null
+      git rebase --quiet
+      statuses[$i]="${GREEN}up to date${NC}"
+      move_up
+      print_table
+      ;;
+    rebase)
+      statuses[$i]="${YELLOW}rebasing...${NC}"
+      move_up
+      print_table
+      git checkout "$branch" --quiet 2>/dev/null
+      git rebase --quiet
+      statuses[$i]="${GREEN}up to date${NC}"
+      move_up
+      print_table
+      ;;
+  esac
+done
+
+git checkout "$current" --quiet
