@@ -141,9 +141,9 @@ export BUILDKITE_ACCESS_TOKEN="[REDACTED:buildkite-agent-token]"
 function prod-console {
   aws sso login --profile prod-console 2>/dev/null
   if [ -z "$1" ]; then
-    aws --profile prod-console ecs execute-command -- bik console
+    AWS_PROFILE=prod-console bik console
   else
-    aws --profile prod-console ecs execute-command -- bik console "'$@'"
+    AWS_PROFILE=prod-console bik console "'$@'"
   fi
 }
 
