@@ -8,7 +8,7 @@ tap "buildkite/buildkite"
 tap "puma/puma"
 brew "puma/puma/puma-dev"
 brew "awscli"
-brew "buildkite-agent"
+brew "buildkite/buildkite/buildkite-agent"
 brew "bk@3"
 
 # Casks
