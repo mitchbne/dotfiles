@@ -139,10 +139,11 @@ export PROCFILE_RUNNER="overmind"
 export BUILDKITE_ACCESS_TOKEN="[REDACTED:buildkite-agent-token]"
 
 function prod-console {
+  aws sso login --profile prod-console 2>/dev/null
   if [ -z "$1" ]; then
-    aws-vault exec prod-console -- bik console
+    aws --profile prod-console ecs execute-command -- bik console
   else
-    aws-vault exec prod-console -- bik console "'$@'"
+    aws --profile prod-console ecs execute-command -- bik console "'$@'"
   fi
 }
 
