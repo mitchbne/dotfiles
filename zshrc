@@ -81,11 +81,11 @@ export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
 # Auto-suggestions (ghost text from history, accept with →)
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# mise (must come before starship, since mise manages it)
+eval "$(mise activate zsh)"
+
 # Prompt (Starship - shows directory, git branch, changes, and more)
 eval "$(starship init zsh)"
-
-# mise
-eval "$(~/.local/bin/mise activate zsh)"
 
 # Go (cached - avoids subprocess)
 export PATH="$PATH:$HOME/go/bin"
