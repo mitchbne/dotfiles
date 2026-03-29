@@ -46,13 +46,18 @@ echo "  ✓ ~/.config/starship.toml"
 
 # Amp (private repo)
 AMP_SKILLS_DIR="$HOME/github.com/mitchbne/amp-skills-private"
-if [ ! -d "$AMP_SKILLS_DIR" ]; then
+if [ -d "$AMP_SKILLS_DIR" ]; then
+  git -C "$AMP_SKILLS_DIR" pull --ff-only 2>/dev/null
+else
   gh repo clone mitchbne/amp-skills-private "$AMP_SKILLS_DIR" 2>/dev/null
 fi
 if [ -d "$AMP_SKILLS_DIR" ]; then
   mkdir -p ~/.config/amp ~/.config/agents
   ln -sf "$AMP_SKILLS_DIR/AGENTS.md" ~/.config/amp/AGENTS.md
   ln -sf "$AMP_SKILLS_DIR/settings.json" ~/.config/amp/settings.json
+  if [ -d ~/.config/agents/skills ] && [ ! -L ~/.config/agents/skills ]; then
+    rm -rf ~/.config/agents/skills
+  fi
   ln -sfn "$AMP_SKILLS_DIR/skills" ~/.config/agents/skills
   echo "  ✓ Amp skills, AGENTS.md, settings"
 else
@@ -71,7 +76,20 @@ ln -sf "$DOTFILES_DIR/config/vscode/settings.json" "$VSCODE_DIR/settings.json"
 ln -sf "$DOTFILES_DIR/config/vscode/keybindings.json" "$VSCODE_DIR/keybindings.json"
 echo "  ✓ VS Code settings + keybindings"
 if command -v code &>/dev/null && [ -f "$DOTFILES_DIR/config/vscode/extensions.txt" ]; then
-  xargs -n1 code --install-extension < "$DOTFILES_DIR/config/vscode/extensions.txt"
+  installed=$(code --list-extensions)
+  while IFS= read -r ext; do
+    [ -z "$ext" ] && continue
+    if ! echo "$installed" | grep -qi "^${ext}$"; then
+      code --install-extension "$ext"
+    fi
+  done < "$DOTFILES_DIR/config/vscode/extensions.txt"
+  # Install simple-project-switcher from private repo (not on marketplace)
+  if gh release download --repo mitchbne/simple-project-switcher --pattern "*.vsix" --dir /tmp --clobber 2>/dev/null; then
+    code --install-extension /tmp/simple-project-switcher-*.vsix
+    rm -f /tmp/simple-project-switcher-*.vsix
+  else
+    echo "  ⚠️  Could not download simple-project-switcher VSIX"
+  fi
   echo "  ✓ VS Code extensions"
 fi
 
