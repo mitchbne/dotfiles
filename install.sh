@@ -92,8 +92,8 @@ if command -v code &>/dev/null && [ -f "$DOTFILES_DIR/config/vscode/extensions.t
   done < "$DOTFILES_DIR/config/vscode/extensions.txt"
   # Install simple-project-switcher from private repo (not on marketplace)
   if gh release download --repo mitchbne/simple-project-switcher --pattern "*.vsix" --dir /tmp --clobber 2>/dev/null; then
-    code --install-extension /tmp/simple-project-switcher-*.vsix
-    rm -f /tmp/simple-project-switcher-*.vsix
+    code --install-extension /tmp/simple-project-switcher*.vsix
+    rm -f /tmp/simple-project-switcher*.vsix
   else
     echo "  ⚠️  Could not download simple-project-switcher VSIX"
   fi
