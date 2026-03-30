@@ -112,6 +112,15 @@ else
   echo "  ⚠️  Fonts repo not accessible — install MonoLisa manually"
 fi
 
+# macOS app preferences
+echo "⚙️  Setting macOS app preferences..."
+
+# Scroll Reverser — reverse trackpad scroll only, keep mouse natural
+defaults write com.pilotmoon.scroll-reverser InvertScrollingOn -bool true
+defaults write com.pilotmoon.scroll-reverser ReverseMouse -bool false
+defaults write com.pilotmoon.scroll-reverser HideIcon -bool true
+echo "  ✓ Scroll Reverser"
+
 echo "🔧 Installing tools via mise..."
 mise install
 
