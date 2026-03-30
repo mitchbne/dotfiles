@@ -6,12 +6,16 @@ brew "zsh-autosuggestions"
 # Dev tools (not managed by mise)
 tap "oven-sh/bun"
 tap "buildkite/buildkite"
+tap "lox/tap"
 tap "puma/puma"
+tap "schpet/tap"
 brew "puma/puma/puma-dev"
 brew "awscli"
 brew "buildkite/buildkite/buildkite-agent"
 brew "buildkite/buildkite/bk@3"
+brew "lox/tap/slack-cli"
 brew "oven-sh/bun/bun"
+brew "schpet/tap/linear"
 
 # Casks
 cask "orbstack"
