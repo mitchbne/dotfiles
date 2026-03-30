@@ -20,3 +20,6 @@ k9s = "latest"
 helm = "latest"
 tflint = "latest"
 bik = "latest"
+
+# Ruby gems
+"gem:ruby-lsp" = "latest"
