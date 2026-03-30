@@ -50,3 +50,12 @@
 	recurse = true
 [credential]
 	helper = !/opt/homebrew/bin/gh auth git-credential
+[alias]
+	cleanup = "!git branch --merged main | grep -v '\\*\\|main' | xargs -r git branch -d && echo 'Cleaned up merged branches'"
+	undo = reset --soft HEAD~1
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[tag]
+	sort = version:refname
