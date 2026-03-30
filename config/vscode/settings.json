@@ -142,6 +142,7 @@
   "explorer.confirmDragAndDrop": false,
   "better-comments.highlightPlainText": true,
   "git.enableSmartCommit": true,
+  "git.autofetch": true,
   "explorer.confirmDelete": false,
   "eslint.validate": [
     "javascript",
