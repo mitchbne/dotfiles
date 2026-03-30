@@ -1,0 +1,20 @@
+#!/bin/bash
+set -e
+
+DAYS="${1:-30}"
+WARN_DAYS=$((DAYS - 7))
+
+# Notify about files that will be trashed within the next 7 days
+upcoming=$(find ~/Downloads -maxdepth 1 -not -name '.DS_Store' -not -path ~/Downloads -mtime +"$WARN_DAYS" -mtime -"$DAYS" -exec basename {} \;)
+if [ -n "$upcoming" ]; then
+  count=$(echo "$upcoming" | wc -l | tr -d ' ')
+  names=$(echo "$upcoming" | head -5 | paste -sd ', ' -)
+  [ "$count" -gt 5 ] && names="$names, and $((count - 5)) more"
+  osascript -e "display notification \"$names\" with title \"Downloads Cleanup\" subtitle \"$count item(s) will be trashed in 7 days\""
+fi
+
+# Trash files older than DAYS
+find ~/Downloads -maxdepth 1 -not -name '.DS_Store' -not -path ~/Downloads -mtime +"$DAYS" -print0 |
+  while IFS= read -r -d '' item; do
+    trash "$item"
+  done

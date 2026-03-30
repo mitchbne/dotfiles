@@ -71,6 +71,13 @@ else
   echo "  ⚠️  Amp skills repo not accessible — set up manually"
 fi
 
+# LaunchAgents
+PLIST="com.mitchbne.cleanup-downloads.plist"
+ln -sf "$DOTFILES_DIR/config/launchd/$PLIST" ~/Library/LaunchAgents/$PLIST
+launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/$PLIST 2>/dev/null || true
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/$PLIST
+echo "  ✓ ~/Library/LaunchAgents/$PLIST"
+
 # Mise
 mkdir -p ~/.config/mise
 ln -sf "$DOTFILES_DIR/config/mise/config.toml" ~/.config/mise/config.toml
