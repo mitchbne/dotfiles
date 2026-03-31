@@ -95,6 +95,7 @@ export BUNDLER_EDITOR="code -n"
 BUILDKITE_ORG_DIR="$HOME/github.com/buildkite"
 
 alias mitchbne="cd $HOME/github.com/mitchbne"
+alias dotfiles="cd $HOME/github.com/mitchbne/dotfiles"
 alias "cdbk"="cd $BUILDKITE_ORG_DIR/buildkite"
 function kill-process-by-port {
   local port=$1
