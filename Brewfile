@@ -13,7 +13,7 @@ brew "puma/puma/puma-dev"
 brew "awscli"
 brew "buildkite/buildkite/buildkite-agent"
 brew "buildkite/buildkite/bk@3"
-brew "lox/tap/slack-cli"
+cask "lox/tap/slack-cli"
 brew "oven-sh/bun/bun"
 brew "schpet/tap/linear"
 
