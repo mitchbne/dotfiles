@@ -44,8 +44,10 @@ Things I use regularly on macOS. Install via App Store, Homebrew, or direct down
 | [jq](https://jqlang.github.io/jq/) | `brew install jq` | JSON processor |
 | [gh](https://cli.github.com) | `brew install gh` | GitHub CLI |
 | [bk](https://github.com/buildkite/cli) | `brew install bk@3` | Buildkite CLI |
-| [thefuck](https://github.com/nvbn/thefuck) | `brew install thefuck` | Auto-correct terminal commands |
-| [shellcheck](https://www.shellcheck.net) | `brew install shellcheck` | Shell script linter |
+| [buildkite-agent](https://buildkite.com/docs/agent) | `brew install buildkite-agent` | Buildkite build agent |
+| [slack-cli](https://github.com/lox/slack-cli) | `brew install --cask lox/tap/slack-cli` | Slack CLI |
+| [linear](https://github.com/schpet/linear) | `brew install schpet/tap/linear` | Linear CLI |
+| [bun](https://bun.sh) | `brew install oven-sh/bun/bun` | JavaScript runtime & bundler |
 
 ### Infrastructure
 
@@ -53,10 +55,6 @@ Things I use regularly on macOS. Install via App Store, Homebrew, or direct down
 |---|---|---|
 | [OrbStack](https://orbstack.dev) | `brew install --cask orbstack` | Docker & Linux VMs (replaces Docker Desktop) |
 | [awscli](https://aws.amazon.com/cli/) | `brew install awscli` | AWS CLI |
-| [aws-vault](https://github.com/99designs/aws-vault) | `brew install --cask aws-vault` | Secure AWS credential storage |
-| [helm](https://helm.sh) | `brew install helm` | Kubernetes package manager |
-| [k9s](https://k9scli.io) | `brew install k9s` | Kubernetes TUI |
-| [tflint](https://github.com/terraform-linters/tflint) | `brew install tflint` | Terraform linter |
 
 ### Productivity
 
@@ -66,7 +64,6 @@ Things I use regularly on macOS. Install via App Store, Homebrew, or direct down
 | [1Password](https://1password.com) | App Store + `brew install --cask 1password-cli` | Password manager |
 | [CleanShot X](https://cleanshot.com) | Direct download | Screenshots & recording |
 | [Scroll Reverser](https://pilotmoon.com/scrollreverser/) | `brew install --cask scroll-reverser` | Natural scroll for trackpad, normal for mouse |
-| [NordVPN](https://nordvpn.com) | App Store | VPN |
 
 ### Communication
 
@@ -75,7 +72,6 @@ Things I use regularly on macOS. Install via App Store, Homebrew, or direct down
 | [Slack](https://slack.com) | App Store | Team chat |
 | [Linear](https://linear.app) | Direct download | Issue tracking |
 | [Notion](https://notion.so) | Direct download | Docs & wiki |
-| [HEY](https://hey.com) | App Store | Email |
 | [Zoom](https://zoom.us) | Direct download | Video calls |
 
 ### Media
