@@ -112,7 +112,7 @@ echo "📦 Installing fonts..."
 mkdir -p ~/Library/Fonts
 rm -rf /tmp/fonts-private
 if gh repo clone mitchbne/fonts-private /tmp/fonts-private 2>/dev/null; then
-  cp -n /tmp/fonts-private/*.ttf ~/Library/Fonts/
+  cp -n /tmp/fonts-private/*.ttf ~/Library/Fonts/ 2>/dev/null || true
   rm -rf /tmp/fonts-private
   echo "  ✓ MonoLisa fonts"
 else
