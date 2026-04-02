@@ -21,6 +21,7 @@ helm = "latest"
 tflint = "latest"
 bik = "latest"
 "github:buildkite/cli" = "latest"
+"github:buildkite/agent" = "latest"
 
 # Ruby gems
 "gem:ruby-lsp" = "latest"
