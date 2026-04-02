@@ -1,2 +1,5 @@
 .DS_Store
+.bk.yaml
+.bk.yml
+
 git/gitconfig.work

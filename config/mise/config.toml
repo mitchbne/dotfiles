@@ -20,6 +20,7 @@ k9s = "latest"
 helm = "latest"
 tflint = "latest"
 bik = "latest"
+"github:buildkite/cli" = "latest"
 
 # Ruby gems
 "gem:ruby-lsp" = "latest"
