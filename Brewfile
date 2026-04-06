@@ -4,6 +4,7 @@ brew "mise"
 brew "zsh-autosuggestions"
 
 # Dev tools (not managed by mise)
+tap "ngrok/ngrok"
 tap "oven-sh/bun"
 tap "lox/tap"
 tap "puma/puma"
@@ -16,6 +17,7 @@ brew "oven-sh/bun/bun"
 brew "schpet/tap/linear"
 
 # Casks
+cask "ngrok/ngrok/ngrok"
 cask "orbstack"
 cask "1password-cli"
 cask "scroll-reverser"
