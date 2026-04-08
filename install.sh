@@ -3,6 +3,21 @@ set -e
 
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 
+install_launch_agent() {
+  local plist="$1"
+  ln -sf "$DOTFILES_DIR/config/launchd/$plist" ~/Library/LaunchAgents/$plist
+  launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/$plist 2>/dev/null || true
+  launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/$plist
+  echo "  ✓ ~/Library/LaunchAgents/$plist"
+}
+
+uninstall_launch_agent() {
+  local plist="$1"
+  launchctl bootout gui/$(id -u) "$plist" 2>/dev/null || true
+  rm -f "$plist"
+  echo "  ✗ Removed $(basename "$plist")"
+}
+
 # Homebrew (needed first for everything else)
 if [ ! -x /opt/homebrew/bin/brew ] && [ ! -x /usr/local/bin/brew ]; then
   echo "🍺 Installing Homebrew..."
@@ -72,11 +87,13 @@ else
 fi
 
 # LaunchAgents
-PLIST="com.mitchbne.cleanup-downloads.plist"
-ln -sf "$DOTFILES_DIR/config/launchd/$PLIST" ~/Library/LaunchAgents/$PLIST
-launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/$PLIST 2>/dev/null || true
-launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/$PLIST
-echo "  ✓ ~/Library/LaunchAgents/$PLIST"
+for plist in "$DOTFILES_DIR/config/launchd/"*.plist; do
+  install_launch_agent "$(basename "$plist")"
+done
+for plist in ~/Library/LaunchAgents/com.mitchbne.*.plist; do
+  [ -f "$plist" ] || continue
+  [ -f "$DOTFILES_DIR/config/launchd/$(basename "$plist")" ] || uninstall_launch_agent "$plist"
+done
 
 # Mise
 mkdir -p ~/.config/mise
