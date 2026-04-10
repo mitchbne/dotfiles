@@ -115,7 +115,7 @@ fi
 
 # Sync npx skills (vercel-labs/skills)
 echo "🔄 Syncing npx skills..."
-npx -y skills add buildkite/agent-skills-internal --all -g -y
+npx -y skills add buildkite/agent-skills-internal --skill '*' -a amp -g -y
 echo "  ✓ npx skills synced"
 
 # LaunchAgents
