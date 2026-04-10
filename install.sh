@@ -113,10 +113,10 @@ else
   echo "  ⚠️  Amp skills repo not accessible — set up manually"
 fi
 
-# Update npx skills (vercel-labs/skills)
-echo "🔄 Updating npx skills..."
-npx -y skills update
-echo "  ✓ npx skills updated"
+# Sync npx skills (vercel-labs/skills)
+echo "🔄 Syncing npx skills..."
+npx -y skills add buildkite/agent-skills-internal --all -y
+echo "  ✓ npx skills synced"
 
 # LaunchAgents
 for plist in "$DOTFILES_DIR/config/launchd/"*.plist; do
