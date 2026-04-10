@@ -6,7 +6,7 @@
 	<string>com.mitchbne.dotfiles-install</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/bin/bash</string>
+		<string>/opt/homebrew/bin/bash</string>
 		<string>-l</string>
 		<string>-c</string>
 		<string>~/github.com/mitchbne/dotfiles/install.sh</string>
