@@ -113,6 +113,11 @@ else
   echo "  ⚠️  Amp skills repo not accessible — set up manually"
 fi
 
+# Update npx skills (vercel-labs/skills)
+echo "🔄 Updating npx skills..."
+npx -y skills update
+echo "  ✓ npx skills updated"
+
 # LaunchAgents
 for plist in "$DOTFILES_DIR/config/launchd/"*.plist; do
   install_launch_agent "$(basename "$plist")"
