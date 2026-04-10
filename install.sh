@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/opt/homebrew/bin/bash
 set -e
 
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -27,7 +27,27 @@ eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shell
 
 # GitHub CLI (needed for private repo auth)
 echo "🍺 Installing brew packages..."
+
+# Snapshot current brew package versions before bundle
+declare -A brew_versions_before
+while IFS= read -r line; do
+  pkg="${line%% *}"
+  ver="${line#* }"
+  brew_versions_before["$pkg"]="$ver"
+done < <(brew list --versions)
+
 brew bundle --file="$DOTFILES_DIR/Brewfile"
+
+# Compare versions and notify on upgrades
+while IFS= read -r line; do
+  pkg="${line%% *}"
+  ver="${line#* }"
+  old_ver="${brew_versions_before[$pkg]:-}"
+  if [ -n "$old_ver" ] && [ "$old_ver" != "$ver" ]; then
+    osascript -e "display notification \"$pkg upgraded from $old_ver → $ver\" with title \"Dotfiles\" subtitle \"Homebrew Upgrade\""
+    echo "  📦 $pkg: $old_ver → $ver"
+  fi
+done < <(brew list --versions)
 
 if ! gh auth status &>/dev/null; then
   echo "🔑 Authenticate with GitHub..."
@@ -77,10 +97,17 @@ if [ -d "$AMP_SKILLS_DIR" ]; then
   mkdir -p ~/.config/amp ~/.config/agents
   ln -sf "$AMP_SKILLS_DIR/AGENTS.md" ~/.config/amp/AGENTS.md
   ln -sf "$AMP_SKILLS_DIR/settings.json" ~/.config/amp/settings.json
-  if [ -d ~/.config/agents/skills ] && [ ! -L ~/.config/agents/skills ]; then
-    rm -rf ~/.config/agents/skills
-  fi
-  ln -sfn "$AMP_SKILLS_DIR/skills" ~/.config/agents/skills
+
+  # Replace directory symlink with a real directory if needed
+  [ -L ~/.config/agents/skills ] && rm ~/.config/agents/skills
+  mkdir -p ~/.config/agents/skills
+
+  # Symlink private skills individually (live editing)
+  for skill_dir in "$AMP_SKILLS_DIR/skills"/*/; do
+    [ -d "$skill_dir" ] || continue
+    ln -sfn "$skill_dir" ~/.config/agents/skills/"$(basename "$skill_dir")"
+  done
+
   echo "  ✓ Amp skills, AGENTS.md, settings"
 else
   echo "  ⚠️  Amp skills repo not accessible — set up manually"
