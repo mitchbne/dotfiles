@@ -15,7 +15,8 @@ brew "tree"
 cask "lox/tap/slack-cli"
 brew "oven-sh/bun/bun"
 brew "schpet/tap/linear"
-
+tap "withgraphite/tap"
+brew "withgraphite/tap/graphite"
 
 # Casks
 cask "ngrok/ngrok/ngrok"
