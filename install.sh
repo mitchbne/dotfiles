@@ -44,8 +44,8 @@ while IFS= read -r line; do
   ver="${line#* }"
   old_ver="${brew_versions_before[$pkg]:-}"
   if [ -n "$old_ver" ] && [ "$old_ver" != "$ver" ]; then
-    osascript -e "display notification \"$pkg upgraded from $old_ver → $ver\" with title \"Dotfiles\" subtitle \"Homebrew Upgrade\""
-    echo "  📦 $pkg: $old_ver → $ver"
+    osascript -e "display notification \"Upgraded $pkg from $old_ver → $ver\" with title \"Dotfiles\" subtitle \"Homebrew Upgrade\""
+    echo "  📦 Upgraded $pkg from $old_ver → $ver"
   fi
 done < <(brew list --versions)
 
@@ -89,7 +89,15 @@ echo "  ✓ ~/.config/starship.toml"
 # Amp (private repo)
 AMP_SKILLS_DIR="$HOME/github.com/mitchbne/amp-skills-private"
 if [ -d "$AMP_SKILLS_DIR" ]; then
+  amp_skills_rev_before=$(git -C "$AMP_SKILLS_DIR" rev-parse HEAD 2>/dev/null)
   git -C "$AMP_SKILLS_DIR" pull --ff-only 2>/dev/null
+  amp_skills_rev_after=$(git -C "$AMP_SKILLS_DIR" rev-parse HEAD 2>/dev/null)
+  if [ "$amp_skills_rev_before" != "$amp_skills_rev_after" ]; then
+    amp_skills_summary=$(git -C "$AMP_SKILLS_DIR" log --oneline "$amp_skills_rev_before..$amp_skills_rev_after" | head -5)
+    osascript -e "display notification \"$amp_skills_summary\" with title \"Dotfiles\" subtitle \"Amp Skills Updated\""
+    echo "  📦 Amp skills updated:"
+    echo "$amp_skills_summary" | sed 's/^/      /'
+  fi
 else
   gh repo clone mitchbne/amp-skills-private "$AMP_SKILLS_DIR" 2>/dev/null
 fi
@@ -115,7 +123,13 @@ fi
 
 # Sync npx skills (vercel-labs/skills)
 echo "🔄 Syncing npx skills..."
+npx_skills_hashes_before=$(cat ~/.agents/.skill-lock.json 2>/dev/null | grep skillFolderHash | sort)
 npx -y skills add buildkite/agent-skills-internal --skill '*' -a amp -g -y
+npx_skills_hashes_after=$(cat ~/.agents/.skill-lock.json 2>/dev/null | grep skillFolderHash | sort)
+if [ "$npx_skills_hashes_before" != "$npx_skills_hashes_after" ]; then
+  osascript -e 'display notification "npx skills were updated" with title "Dotfiles" subtitle "npx Skills Updated"'
+  echo "  📦 npx skills updated"
+fi
 echo "  ✓ npx skills synced"
 
 # LaunchAgents
@@ -178,7 +192,18 @@ defaults write com.pilotmoon.scroll-reverser HideIcon -bool true
 echo "  ✓ Scroll Reverser"
 
 echo "🔧 Installing tools via mise..."
+mise_before=$(mise list --installed 2>/dev/null | awk '{print $1, $2}' | sort -u)
 mise install
+mise upgrade --bump
+mise_after=$(mise list --installed 2>/dev/null | awk '{print $1, $2}' | sort -u)
+
+while IFS= read -r line; do
+  [ -z "$line" ] && continue
+  tool="${line%% *}"
+  ver="${line#* }"
+  osascript -e "display notification \"Installed $tool $ver\" with title \"Dotfiles\" subtitle \"Mise\""
+  echo "  📦 Installed $tool $ver"
+done < <(comm -13 <(echo "$mise_before") <(echo "$mise_after"))
 
 echo ""
 echo "✅ Done! Restart your shell: exec zsh"
