@@ -5,9 +5,9 @@ idiomatic_version_file_enable_tools = ["ruby", "terraform"]
 compile = false
 
 [tools]
-go = "1.22.3"
-node = "22.14.0"
-ruby = "3.4.5"
+go = "latest"
+node = "latest"
+ruby = "latest"
 
 # CLI tools
 starship = "latest"
