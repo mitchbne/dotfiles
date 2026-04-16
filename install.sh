@@ -125,6 +125,7 @@ fi
 echo "🔄 Syncing npx skills..."
 npx_skills_hashes_before=$(cat ~/.agents/.skill-lock.json 2>/dev/null | grep skillFolderHash | sort)
 npx -y skills add buildkite/agent-skills-internal --skill '*' -a amp -g -y
+npx -y skills add vercel-labs/agent-browser --skill '*' -a amp -g -y
 npx_skills_hashes_after=$(cat ~/.agents/.skill-lock.json 2>/dev/null | grep skillFolderHash | sort)
 if [ "$npx_skills_hashes_before" != "$npx_skills_hashes_after" ]; then
   osascript -e 'display notification "npx skills were updated" with title "Dotfiles" subtitle "npx Skills Updated"'
