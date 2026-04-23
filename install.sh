@@ -25,6 +25,9 @@ if [ ! -x /opt/homebrew/bin/brew ] && [ ! -x /usr/local/bin/brew ]; then
 fi
 eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv 2>/dev/null)"
 
+# Mise (activate shims so mise-managed tools like node/npx are available, especially under launchd)
+eval "$(mise activate bash --shims 2>/dev/null)" || true
+
 # GitHub CLI (needed for private repo auth)
 echo "🍺 Installing brew packages..."
 
@@ -124,8 +127,9 @@ fi
 # Sync npx skills (vercel-labs/skills)
 echo "🔄 Syncing npx skills..."
 npx_skills_hashes_before=$(cat ~/.agents/.skill-lock.json 2>/dev/null | grep skillFolderHash | sort)
-npx -y skills add buildkite/agent-skills-internal --skill '*' -a amp -g -y
-npx -y skills add vercel-labs/agent-browser --skill '*' -a amp -g -y
+npx -y skills add buildkite/agent-skills-internal --skill '*' -a amp -g -y || echo "  ⚠️  Failed to sync buildkite/agent-skills-internal"
+npx -y skills add vercel-labs/agent-browser --skill '*' -a amp -g -y || echo "  ⚠️  Failed to sync vercel-labs/agent-browser"
+npx -y skills update 2>&1 || echo "  ⚠️  Failed to update npx skills"
 npx_skills_hashes_after=$(cat ~/.agents/.skill-lock.json 2>/dev/null | grep skillFolderHash | sort)
 if [ "$npx_skills_hashes_before" != "$npx_skills_hashes_after" ]; then
   osascript -e 'display notification "npx skills were updated" with title "Dotfiles" subtitle "npx Skills Updated"'
@@ -134,8 +138,12 @@ fi
 echo "  ✓ npx skills synced"
 
 # LaunchAgents
+SELF_PLIST="com.mitchbne.dotfiles-install.plist"
+trap 'ln -sf "$DOTFILES_DIR/config/launchd/$SELF_PLIST" ~/Library/LaunchAgents/$SELF_PLIST && launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/$SELF_PLIST 2>/dev/null; launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/$SELF_PLIST 2>/dev/null' EXIT
 for plist in "$DOTFILES_DIR/config/launchd/"*.plist; do
-  install_launch_agent "$(basename "$plist")"
+  name="$(basename "$plist")"
+  [ "$name" = "$SELF_PLIST" ] && continue
+  install_launch_agent "$name"
 done
 for plist in ~/Library/LaunchAgents/com.mitchbne.*.plist; do
   [ -f "$plist" ] || continue
