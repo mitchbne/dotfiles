@@ -12,7 +12,7 @@ Personal dotfiles for macOS.
 | **Fonts** | MonoLisa (Regular, Bold, Italic) |
 | **Rails** | `railsrc` (default flags for `rails new`) |
 | **Amp** | `AGENTS.md`, `settings.json`, all skills |
-| **Mise** | Global tool versions (Ruby, Node, Go) |
+| **Mise** | Global tool versions and CLI tools (`ruby`, `node`, `go`, `lefthook`, Buildkite tools) |
 
 ## Install
 
@@ -25,6 +25,8 @@ cd ~/github.com/mitchbne/dotfiles
 ## How it works
 
 The install script **symlinks** everything into place, so edits in this repo are immediately live. Fonts are copied (not symlinked) since macOS expects them in `~/Library/Fonts/`.
+
+It also links `~/.config/mise/config.toml` to this repo, then runs `mise install` and `mise upgrade --bump`, so globally managed tools like `lefthook`, `bk`, and `buildkite-agent` stay available and up to date.
 
 ## Apps & Tools
 
@@ -42,9 +44,10 @@ Things I use regularly on macOS. Install via App Store, Homebrew, or direct down
 | [puma-dev](https://github.com/puma/puma-dev) | `brew install puma-dev` | Local `.localhost` domains |
 | [ripgrep](https://github.com/BurntSushi/ripgrep) | `brew install ripgrep` | Fast search |
 | [jq](https://jqlang.github.io/jq/) | `brew install jq` | JSON processor |
+| [lefthook](https://github.com/evilmartians/lefthook) | Installed globally by `./install.sh` via `mise` | Git hooks manager |
 | [gh](https://cli.github.com) | `brew install gh` | GitHub CLI |
-| [bk](https://github.com/buildkite/cli) | `brew install bk@3` | Buildkite CLI |
-| [buildkite-agent](https://buildkite.com/docs/agent) | `brew install buildkite-agent` | Buildkite build agent |
+| [bk](https://github.com/buildkite/cli) | Installed globally by `./install.sh` via `mise` | Buildkite CLI |
+| [buildkite-agent](https://buildkite.com/docs/agent) | Installed globally by `./install.sh` via `mise` | Buildkite build agent |
 | [slack-cli](https://github.com/lox/slack-cli) | `brew install --cask lox/tap/slack-cli` | Slack CLI |
 | [linear](https://github.com/schpet/linear) | `brew install schpet/tap/linear` | Linear CLI |
 | [bun](https://bun.sh) | `brew install oven-sh/bun/bun` | JavaScript runtime & bundler |
