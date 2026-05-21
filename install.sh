@@ -3,6 +3,38 @@ set -e
 
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 
+notify() {
+  # $1 = subtitle, $2 = message
+  osascript -e "display notification \"$2\" with title \"Dotfiles\" subtitle \"$1\"" 2>/dev/null || true
+}
+
+# Capture failures with line number for the EXIT trap
+FAIL_LINE=""
+trap 'FAIL_LINE=$LINENO' ERR
+
+on_exit() {
+  local rc=$?
+
+  # Re-install the self-plist (we can't bootout/bootstrap ourselves while running,
+  # so this is deferred until exit). Surface failures via notification.
+  local self_plist="com.mitchbne.dotfiles-install.plist"
+  local self_link="$HOME/Library/LaunchAgents/$self_plist"
+  if ! ln -sf "$DOTFILES_DIR/config/launchd/$self_plist" "$self_link"; then
+    notify "Self-install failed" "Could not symlink $self_plist"
+  else
+    launchctl bootout "gui/$(id -u)" "$self_link" 2>/dev/null || true
+    if ! launchctl bootstrap "gui/$(id -u)" "$self_link" 2>/tmp/dotfiles-bootstrap.err; then
+      notify "Self-install failed" "launchctl bootstrap failed; see /tmp/dotfiles-bootstrap.err"
+    fi
+  fi
+
+  if [ "$rc" -ne 0 ]; then
+    notify "Install failed (exit $rc)" "Failed near line ${FAIL_LINE:-?}; see /tmp/dotfiles-install.log"
+  fi
+  exit "$rc"
+}
+trap on_exit EXIT
+
 install_launch_agent() {
   local plist="$1"
   ln -sf "$DOTFILES_DIR/config/launchd/$plist" ~/Library/LaunchAgents/$plist
@@ -47,7 +79,7 @@ while IFS= read -r line; do
   ver="${line#* }"
   old_ver="${brew_versions_before[$pkg]:-}"
   if [ -n "$old_ver" ] && [ "$old_ver" != "$ver" ]; then
-    osascript -e "display notification \"Upgraded $pkg from $old_ver → $ver\" with title \"Dotfiles\" subtitle \"Homebrew Upgrade\""
+    notify "Homebrew Upgrade" "Upgraded $pkg from $old_ver → $ver"
     echo "  📦 Upgraded $pkg from $old_ver → $ver"
   fi
 done < <(brew list --versions)
@@ -55,6 +87,12 @@ done < <(brew list --versions)
 if ! gh auth status &>/dev/null; then
   echo "🔑 Authenticate with GitHub..."
   gh auth login
+fi
+
+# Export GITHUB_TOKEN for downstream tools (mise, npx skills, etc.) so they
+# don't hit unauthenticated rate limits. No-op if gh is missing or logged out.
+if command -v gh &>/dev/null && gh auth status &>/dev/null; then
+  export GITHUB_TOKEN="$(gh auth token)"
 fi
 
 echo "🔗 Linking dotfiles..."
@@ -97,7 +135,7 @@ if [ -d "$AMP_SKILLS_DIR" ]; then
   amp_skills_rev_after=$(git -C "$AMP_SKILLS_DIR" rev-parse HEAD 2>/dev/null)
   if [ "$amp_skills_rev_before" != "$amp_skills_rev_after" ]; then
     amp_skills_summary=$(git -C "$AMP_SKILLS_DIR" log --oneline "$amp_skills_rev_before..$amp_skills_rev_after" | head -5)
-    osascript -e "display notification \"$amp_skills_summary\" with title \"Dotfiles\" subtitle \"Amp Skills Updated\""
+    notify "Amp Skills Updated" "$amp_skills_summary"
     echo "  📦 Amp skills updated:"
     echo "$amp_skills_summary" | sed 's/^/      /'
   fi
@@ -125,21 +163,49 @@ else
 fi
 
 # Sync npx skills (vercel-labs/skills)
-echo "🔄 Syncing npx skills..."
-npx_skills_hashes_before=$(cat ~/.agents/.skill-lock.json 2>/dev/null | grep skillFolderHash | sort)
-npx -y skills add buildkite/agent-skills-internal --skill '*' -a amp -g -y || echo "  ⚠️  Failed to sync buildkite/agent-skills-internal"
-npx -y skills add vercel-labs/agent-browser --skill '*' -a amp -g -y || echo "  ⚠️  Failed to sync vercel-labs/agent-browser"
-npx -y skills update -g -y 2>&1 || echo "  ⚠️  Failed to update npx skills"
-npx_skills_hashes_after=$(cat ~/.agents/.skill-lock.json 2>/dev/null | grep skillFolderHash | sort)
-if [ "$npx_skills_hashes_before" != "$npx_skills_hashes_after" ]; then
-  osascript -e 'display notification "npx skills were updated" with title "Dotfiles" subtitle "npx Skills Updated"'
-  echo "  📦 npx skills updated"
-fi
-echo "  ✓ npx skills synced"
+#
+# SECURITY: Skill repos are pulled from upstream as agent instructions, and
+# a compromised maintainer account could inject prompt-injection payloads or
+# bundled scripts that the agent might execute. We therefore:
+#   1. Only bootstrap a source via `npx skills add` if it isn't already
+#      installed (no daily re-pull of `main`).
+#   2. Use `npx skills check` to detect upstream changes WITHOUT applying
+#      them, and notify so they can be reviewed manually with:
+#        cd ~/.agents/skills/<name> && git log -p   (if .git is kept)
+#        npx -y skills update -g -y                 (to apply)
+echo "🔄 Checking npx skills..."
 
-# LaunchAgents
+# Bootstrap each source on first install only. The lock file records the
+# `source` field for every installed skill, so presence implies bootstrap done.
+bootstrap_skill_source() {
+  local source="$1"
+  if [ -f ~/.agents/.skill-lock.json ] && grep -q "\"source\": \"$source\"" ~/.agents/.skill-lock.json 2>/dev/null; then
+    return 0
+  fi
+  echo "  ➕ Bootstrapping $source (first install)..."
+  npx -y skills add "$source" --skill '*' -a amp -g -y || echo "  ⚠️  Failed to bootstrap $source"
+}
+
+bootstrap_skill_source "buildkite/agent-skills-internal"
+bootstrap_skill_source "vercel-labs/agent-browser"
+bootstrap_skill_source "emilkowalski/skill"
+bootstrap_skill_source "forrestchang/andrej-karpathy-skills"
+
+# Check for upstream updates without applying them. Notify if any exist so
+# they can be reviewed before `npx -y skills update -g -y` is run manually.
+skills_check_out=$(npx -y skills check -g 2>&1 || true)
+if echo "$skills_check_out" | grep -qiE "update available|updates available|out of date|behind"; then
+  updated_skills=$(echo "$skills_check_out" | grep -iE "update available|out of date|behind" | head -10)
+  notify "npx Skills Updates Available" "Run: npx -y skills update -g -y (review first)"
+  echo "  📦 Upstream updates available — review before applying:"
+  echo "$updated_skills" | sed 's/^/      /'
+  echo "      Apply with: npx -y skills update -g -y"
+else
+  echo "  ✓ npx skills up to date"
+fi
+
+# LaunchAgents (the self-plist is handled by the on_exit trap)
 SELF_PLIST="com.mitchbne.dotfiles-install.plist"
-trap 'ln -sf "$DOTFILES_DIR/config/launchd/$SELF_PLIST" ~/Library/LaunchAgents/$SELF_PLIST && launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/$SELF_PLIST 2>/dev/null; launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/$SELF_PLIST 2>/dev/null' EXIT
 for plist in "$DOTFILES_DIR/config/launchd/"*.plist; do
   name="$(basename "$plist")"
   [ "$name" = "$SELF_PLIST" ] && continue
@@ -210,7 +276,7 @@ while IFS= read -r line; do
   [ -z "$line" ] && continue
   tool="${line%% *}"
   ver="${line#* }"
-  osascript -e "display notification \"Installed $tool $ver\" with title \"Dotfiles\" subtitle \"Mise\""
+  notify "Mise" "Installed $tool $ver"
   echo "  📦 Installed $tool $ver"
 done < <(comm -13 <(echo "$mise_before") <(echo "$mise_after"))
 
