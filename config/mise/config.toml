@@ -4,6 +4,12 @@ idiomatic_version_file_enable_tools = ["ruby", "terraform"]
 [settings.ruby]
 compile = false
 
+# Use `gh auth token` so mise can authenticate to GitHub without storing a PAT.
+# On macOS, `gh auth login` stashes tokens in Keychain (not hosts.yml), so
+# mise's built-in gh CLI integration can't read them directly.
+[settings.github]
+credential_command = "gh auth token"
+
 [tools]
 go = "latest"
 node = "latest"
