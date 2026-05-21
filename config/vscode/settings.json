@@ -134,11 +134,9 @@
   "editor.tabSize": 2, // Use two spaces foreach tab ->
   "editor.renderWhitespace": "all", // Show whitespace as dots
   // "editor.renderWhitespace": "all", // Show whitespace as dots
-  "javascript.validate.enable": false,
-  "typescript.validate.enable": true,
+  "js/ts.validate.enabled": true,
   "scss.validate": false,
   "less.validate": false,
-  "javascript.updateImportsOnFileMove.enabled": "always",
   "explorer.confirmDragAndDrop": false,
   "better-comments.highlightPlainText": true,
   "git.enableSmartCommit": true,
@@ -321,19 +319,17 @@
   // "terminal.external.osxExec": "Terminal.app"
   "terminal.external.osxExec": "Warp.app",
   "security.promptForLocalFileProtocolHandling": false,
-  "typescript.inlayHints.enumMemberValues.enabled": true,
-  "typescript.inlayHints.parameterTypes.enabled": true,
-  "javascript.inlayHints.variableTypes.enabled": true,
-  "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
-  "javascript.preferences.importModuleSpecifier": "non-relative",
-  "erb.erb-lint.suppressERBLintWarnings": false,
+  "js/ts.inlayHints.enumMemberValues.enabled": true,
+  "js/ts.inlayHints.parameterTypes.enabled": true,
+  "js/ts.inlayHints.variableTypes.enabled": true,
+  "js/ts.inlayHints.propertyDeclarationTypes.enabled": true,
+  "js/ts.preferences.importModuleSpecifier": "non-relative",
   "screencastMode.fontSize": 24,
   "screencastMode.keyboardOptions": {
     "showSingleEditorCursorMoves": false,
     "showKeys": false
   },
-  "typescript.suggest.paths": false,
-  "javascript.suggest.paths": false,
+  "js/ts.suggest.paths": true,
   "github.copilot.nextEditSuggestions.enabled": false,
   "docker.extension.enableComposeLanguageServer": false,
   "workbench.secondarySideBar.defaultVisibility": "hidden",
@@ -351,8 +347,7 @@
   "[github-actions-workflow]": {
     "editor.defaultFormatter": "redhat.vscode-yaml"
   },
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "amp.url": "https://ampcode.com/",
+  "js/ts.updateImportsOnFileMove.enabled": "always",
   "editor.wordBasedSuggestions": "off",
   "workbench.editor.enablePreview": false,
   "workbench.editorAssociations": {
@@ -371,5 +366,7 @@
   "workbench.colorTheme": "Palenight (Mild Contrast)",
   "tailwindCSS.experimental.classRegex": [],
   "window.autoDetectColorScheme": true,
-  "workbench.preferredDarkColorTheme": "Palenight (Mild Contrast)"
+  "workbench.preferredDarkColorTheme": "Palenight (Mild Contrast)",
+  "oxc.enable.oxfmt": true,
+  "oxc.enable.oxlint": true
 }
