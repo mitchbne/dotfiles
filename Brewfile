@@ -2,6 +2,7 @@
 brew "gh"
 brew "mise"
 brew "zsh-autosuggestions"
+brew "libyaml" # required to build ruby's psych extension via ruby-build
 
 # Dev tools (not managed by mise)
 tap "ngrok/ngrok"
