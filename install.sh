@@ -151,10 +151,12 @@ if [ -d "$AMP_SKILLS_DIR" ]; then
   [ -L ~/.config/agents/skills ] && rm ~/.config/agents/skills
   mkdir -p ~/.config/agents/skills
 
-  # Symlink private skills individually (live editing)
+  # Copy private skills individually so local agent loads do not depend on repo symlinks.
   for skill_dir in "$AMP_SKILLS_DIR/skills"/*/; do
     [ -d "$skill_dir" ] || continue
-    ln -sfn "$skill_dir" ~/.config/agents/skills/"$(basename "$skill_dir")"
+    skill_target="$HOME/.config/agents/skills/$(basename "$skill_dir")"
+    rm -rf "$skill_target"
+    cp -R "$skill_dir" "$skill_target"
   done
 
   echo "  ✓ Amp skills, AGENTS.md, settings"
@@ -189,7 +191,6 @@ bootstrap_skill_source() {
 bootstrap_skill_source "buildkite/agent-skills-internal"
 bootstrap_skill_source "vercel-labs/agent-browser"
 bootstrap_skill_source "emilkowalski/skill"
-bootstrap_skill_source "forrestchang/andrej-karpathy-skills"
 
 # Check for upstream updates without applying them. Notify if any exist so
 # they can be reviewed before `npx -y skills update -g -y` is run manually.
