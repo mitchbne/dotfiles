@@ -151,11 +151,11 @@ if [ -d "$AMP_SKILLS_DIR" ]; then
   [ -L ~/.config/agents/skills ] && rm ~/.config/agents/skills
   mkdir -p ~/.config/agents/skills
 
-  # Copy private skills individually so local agent loads do not depend on repo symlinks.
+  # Mirror private skills so deleted or renamed skills do not remain active locally.
+  find ~/.config/agents/skills -mindepth 1 -maxdepth 1 -exec rm -rf {} +
   for skill_dir in "$AMP_SKILLS_DIR/skills"/*/; do
     [ -d "$skill_dir" ] || continue
     skill_target="$HOME/.config/agents/skills/$(basename "$skill_dir")"
-    rm -rf "$skill_target"
     cp -R "$skill_dir" "$skill_target"
   done
 
@@ -188,6 +188,7 @@ bootstrap_skill_source() {
   npx -y skills add "$source" --skill '*' -a amp -g -y || echo "  ⚠️  Failed to bootstrap $source"
 }
 
+bootstrap_skill_source "buildkite/skills"
 bootstrap_skill_source "buildkite/agent-skills-internal"
 bootstrap_skill_source "vercel-labs/agent-browser"
 bootstrap_skill_source "emilkowalski/skill"
