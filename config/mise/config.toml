@@ -27,8 +27,10 @@ k9s = "latest"
 helm = "latest"
 tflint = "latest"
 bik = "latest"
+"github:namespacelabs/foundation" = { version = "latest", matching_regex = "^nsc_" }
 "github:buildkite/cli" = "latest"
 "github:buildkite/agent" = "latest"
 
 # Ruby gems
 "gem:ruby-lsp" = "latest"
+"github:buildkite/slopcannon" = "latest"
