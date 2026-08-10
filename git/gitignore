@@ -3,3 +3,5 @@ TAGS
 
 .DS_Store
 gitconfig.work
+
+**/.claude/settings.local.json
