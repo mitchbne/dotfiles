@@ -71,6 +71,16 @@ while IFS= read -r line; do
   brew_versions_before["$pkg"]="$ver"
 done < <(brew list --versions)
 
+# Homebrew refuses to load non-official formulae when tap trust is required.
+# These are the third-party taps explicitly managed by this Brewfile.
+brew trust --tap \
+  ngrok/ngrok \
+  oven-sh/bun \
+  lox/tap \
+  puma/puma \
+  schpet/tap \
+  withgraphite/tap
+
 brew bundle --file="$DOTFILES_DIR/Brewfile"
 
 # Compare versions and notify on upgrades
