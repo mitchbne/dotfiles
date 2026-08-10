@@ -188,6 +188,7 @@ skill_sources=(
   "emilkowalski/skill"
   "buildkite/slopcannon"
   "marckohlbrugge/37signals-skills"
+  "mattpocock/skills"
 )
 
 for source in "${skill_sources[@]}"; do
