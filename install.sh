@@ -211,6 +211,22 @@ else
   echo "  ✓ npx skills up to date"
 fi
 
+# Mirror both agent skill stores into ~/.claude/skills so Claude Code sees them.
+# npx store (~/.agents/skills) wins name collisions to match Amp's active set.
+echo "🔗 Syncing Claude Code skills..."
+find ~/.claude/skills -maxdepth 1 -mindepth 1 -type l -delete 2>/dev/null
+mkdir -p ~/.claude/skills
+for store in .agents/skills .config/agents/skills; do
+  for skill_dir in "$HOME/$store"/*/; do
+    [ -d "$skill_dir" ] || continue          # skips broken/non-dir entries
+    name="$(basename "$skill_dir")"
+    target="$HOME/.claude/skills/$name"
+    [ -e "$target" ] || [ -L "$target" ] && continue   # first store wins collisions
+    ln -s "../../$store/$name" "$target"
+  done
+done
+echo "  ✓ Claude Code skills ($(find ~/.claude/skills -maxdepth 1 -mindepth 1 -type l | wc -l | tr -d ' ') linked)"
+
 # LaunchAgents (the self-plist is handled by the on_exit trap)
 SELF_PLIST="com.mitchbne.dotfiles-install.plist"
 for plist in "$DOTFILES_DIR/config/launchd/"*.plist; do
