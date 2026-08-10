@@ -1,2 +1,3 @@
 --database=postgresql
 --css=tailwind
+--skip-devcontainer
