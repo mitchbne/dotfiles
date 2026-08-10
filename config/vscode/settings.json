@@ -261,6 +261,7 @@
     "~/github.com/rails",
     "~/github.com/nickattanda",
     "~/github.com/cressylongford",
+    "~/github.com/tenselo"
   ],
   "workbench.sideBar.location": "right",
   "yaml.validate": false,
@@ -368,5 +369,7 @@
   "window.autoDetectColorScheme": true,
   "workbench.preferredDarkColorTheme": "Palenight (Mild Contrast)",
   "oxc.enable.oxfmt": true,
-  "oxc.enable.oxlint": true
+  "oxc.enable.oxlint": true,
+  "workbench.browser.openLocalhostLinks": false,
+  "terminal.integrated.initialHint": false
 }
