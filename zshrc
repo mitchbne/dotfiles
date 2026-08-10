@@ -98,8 +98,8 @@ alias mitchbne="cd $HOME/github.com/mitchbne"
 alias dotfiles="cd $HOME/github.com/mitchbne/dotfiles"
 alias "cdbk"="cd $BUILDKITE_ORG_DIR/buildkite"
 function kill-process-by-port {
-  local port=$1
-  lsof -i -P -n | grep LISTEN | grep -i "$port" | awk 'NR > 1 {print $2}' | xargs -n1 kill -9
+  local pids=($(lsof -tiTCP:"$1" -sTCP:LISTEN))
+  (( ${#pids} )) && kill -9 $pids
 }
 
 alias "quick-setup"="cd $BUILDKITE_ORG_DIR/buildkite && (bundle check || bundle) && bin/rails db:prepare && yarn && echo 'Setup complete!'"
