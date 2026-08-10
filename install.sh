@@ -174,44 +174,38 @@ else
   echo "  ⚠️  Amp skills repo not accessible — set up manually"
 fi
 
-# Sync npx skills (vercel-labs/skills)
-#
-# SECURITY: Skill repos are pulled from upstream as agent instructions, and
-# a compromised maintainer account could inject prompt-injection payloads or
-# bundled scripts that the agent might execute. We therefore:
-#   1. Only bootstrap a source via `npx skills add` if it isn't already
-#      installed (no daily re-pull of `main`).
-#   2. Use `npx skills check` to detect upstream changes WITHOUT applying
-#      them, and notify so they can be reviewed manually with:
-#        cd ~/.agents/skills/<name> && git log -p   (if .git is kept)
-#        npx -y skills update -g -y                 (to apply)
+# Sync npx skills (vercel-labs/skills). These are agent instructions, so this
+# trusts the configured upstream sources and applies their updates during the
+# daily dotfiles install.
 echo "🔄 Checking npx skills..."
 
-# Bootstrap each source on first install only. The lock file records the
-# `source` field for every installed skill, so presence implies bootstrap done.
-bootstrap_skill_source() {
-  local source="$1"
-  if [ -f ~/.agents/.skill-lock.json ] && grep -q "\"source\": \"$source\"" ~/.agents/.skill-lock.json 2>/dev/null; then
-    return 0
-  fi
-  echo "  ➕ Bootstrapping $source (first install)..."
-  npx -y skills add "$source" --skill '*' -a amp -g -y || echo "  ⚠️  Failed to bootstrap $source"
-}
+# Re-add every source to refresh installed skills and discover newly published
+# ones. The update command below also covers global skills outside this list.
+skill_sources=(
+  "buildkite/skills"
+  "buildkite/agent-skills-internal"
+  "vercel-labs/agent-browser"
+  "emilkowalski/skill"
+  "buildkite/slopcannon"
+  "marckohlbrugge/37signals-skills"
+)
 
-bootstrap_skill_source "buildkite/skills"
-bootstrap_skill_source "buildkite/agent-skills-internal"
-bootstrap_skill_source "vercel-labs/agent-browser"
-bootstrap_skill_source "emilkowalski/skill"
+for source in "${skill_sources[@]}"; do
+  echo "  🔄 Syncing $source..."
+  npx -y skills add "$source" --skill '*' -a amp -g -y || echo "  ⚠️  Failed to sync $source"
+done
 
-# Check for upstream updates without applying them. Notify if any exist so
-# they can be reviewed before `npx -y skills update -g -y` is run manually.
-skills_check_out=$(npx -y skills check -g 2>&1 || true)
-if echo "$skills_check_out" | grep -qiE "update available|updates available|out of date|behind"; then
-  updated_skills=$(echo "$skills_check_out" | grep -iE "update available|out of date|behind" | head -10)
-  notify "npx Skills Updates Available" "Run: npx -y skills update -g -y (review first)"
-  echo "  📦 Upstream updates available — review before applying:"
-  echo "$updated_skills" | sed 's/^/      /'
-  echo "      Apply with: npx -y skills update -g -y"
+# Apply upstream updates automatically.
+skills_update_out=$(npx -y skills update -g -y 2>&1)
+skills_update_status=$?
+if [ "$skills_update_status" -ne 0 ]; then
+  echo "  ⚠️  Failed to update npx skills"
+  echo "$skills_update_out" | sed 's/^/      /'
+elif echo "$skills_update_out" | grep -qiE "updated|installed|added|removed"; then
+  changed_skills=$(echo "$skills_update_out" | grep -iE "updated|installed|added|removed" | head -10)
+  notify "npx Skills Updated" "$changed_skills"
+  echo "  📦 npx skills updated:"
+  echo "$changed_skills" | sed 's/^/      /'
 else
   echo "  ✓ npx skills up to date"
 fi
